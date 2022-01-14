@@ -17,7 +17,7 @@ const MenuContent: FC<BasicLayoutProps> = ({ global }) => {
 
   function renderMenu(data: any = []) {
     const rows = Array.isArray(data) ? data : [];
-    return rows.map(row => {
+    return rows.map((row) => {
       if (row === undefined) return false;
       const { title, link = '', key, children, ...restState } = row;
       if (children && children.length > 0) {
@@ -54,9 +54,7 @@ const MenuContent: FC<BasicLayoutProps> = ({ global }) => {
   );
 };
 
-export default connect(
-  ({ global, loading }: { global: GlobalModelState; loading: Loading }) => ({
-    global,
-    loading: loading.models.index,
-  }),
-)(MenuContent);
+export default connect(({ global, loading }: { global: GlobalModelState; loading: Loading }) => ({
+  global,
+  loading: loading.models.index,
+}))(MenuContent);

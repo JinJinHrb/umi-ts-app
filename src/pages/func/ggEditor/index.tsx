@@ -10,13 +10,13 @@ const GGEditorComp = () => {
   const graphRef = useRef<any>(null);
 
   useEffect(() => {
-    console.log(graphRef.current);
+    // console.log(graphRef.current);
   }, []);
 
   const save = () => {
     if (graphRef.current.graph) {
       const data = graphRef.current.graph.save();
-      console.log(data);
+      // console.log(data);
     }
   };
 
@@ -26,7 +26,7 @@ const GGEditorComp = () => {
 
   const handleNodeClick = (e: any) => {
     const nodeItem = e.item;
-    console.log(nodeItem);
+    // console.log(nodeItem);
   };
 
   return (

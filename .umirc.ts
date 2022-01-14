@@ -6,6 +6,7 @@ export default defineConfig({
   hash: true,
   antd: {},
   dva: {
+    immer: true,
     hmr: true,
   },
   locale: {
@@ -17,6 +18,9 @@ export default defineConfig({
   },
   // 是否启用按需加载
   // dynamicImport: {},
+
+  devtool: 'eval-cheap-module-source-map',
+
   // 设置 node_modules 目录下依赖文件的编译方式
   nodeModulesTransform: {
     type: 'none',
@@ -34,4 +38,5 @@ export default defineConfig({
       pathRewrite: { '^/api': '' },
     },
   },
+  mfsu: {},
 });

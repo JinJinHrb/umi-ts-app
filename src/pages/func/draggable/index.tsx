@@ -83,23 +83,13 @@ const Container = () => {
     if (!result.destination) {
       return;
     }
-    if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    ) {
+    if (destination.droppableId === source.droppableId && destination.index === source.index) {
       return;
     }
-    console.log(source.droppableId);
-    console.log(destination.droppableId);
-    if (
-      destination.droppableId === source.droppableId &&
-      destination.index !== source.index
-    ) {
-      const items = reorder(
-        dataSource,
-        result.source.index,
-        result.destination.index,
-      );
+    // console.log(source.droppableId);
+    // console.log(destination.droppableId);
+    if (destination.droppableId === source.droppableId && destination.index !== source.index) {
+      const items = reorder(dataSource, result.source.index, result.destination.index);
       setDataSource(items);
       return;
     }
@@ -125,10 +115,7 @@ const Container = () => {
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
-                    style={getItemStyle(
-                      snapshot.isDragging,
-                      provided.draggableProps.style,
-                    )}
+                    style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
                   >
                     {item.content}
                   </div>
@@ -155,10 +142,7 @@ const Container = () => {
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
-                    style={getItemStyle(
-                      snapshot.isDragging,
-                      provided.draggableProps.style,
-                    )}
+                    style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
                   >
                     {item.content}
                   </div>

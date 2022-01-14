@@ -1,10 +1,11 @@
-import { Effect, Reducer, history } from 'umi';
+import { Effect, Reducer, history, ImmerReducer } from 'umi';
 import { message } from 'antd';
 import { queryLogin, logout } from '@/services/login';
 
 import { ConnectState, LoginUserInfoState } from './connect.d';
 
 export interface LoginModelState {
+  name: any;
   userInfo: LoginUserInfoState;
   isError: boolean;
 }
@@ -18,9 +19,9 @@ export interface LoginModelType {
     logout: Effect;
   };
   reducers: {
-    save: Reducer<LoginModelState>;
+    // save: Reducer<LoginModelState>;
     // 启用 immer 之后
-    // save: ImmerReducer<LoginModelState>;
+    save: ImmerReducer<LoginModelState>;
   };
 }
 
@@ -44,10 +45,7 @@ const LoginModel: LoginModelType = {
             userInfo: response.currentAuthority,
           },
         });
-        localStorage.setItem(
-          'userid',
-          JSON.stringify(response.currentAuthority.userid),
-        );
+        localStorage.setItem('userid', JSON.stringify(response.currentAuthority.userid));
         message.success('登录成功！');
         history.replace('/');
       } else {
@@ -81,16 +79,16 @@ const LoginModel: LoginModelType = {
     },
   },
   reducers: {
-    save(state, action) {
-      return {
-        ...state,
-        ...action.payload,
-      };
-    },
-    // 启用 immer 之后
     // save(state, action) {
-    //   state.name = action.payload;
+    //   return {
+    //     ...state,
+    //     ...action.payload,
+    //   };
     // },
+    // 启用 immer 之后
+    save(state, action) {
+      state.name = action.payload;
+    },
   },
 };
 

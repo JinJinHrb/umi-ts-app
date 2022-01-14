@@ -1,4 +1,4 @@
-import { Effect, Reducer } from 'umi';
+import { Effect, Reducer, ImmerReducer } from 'umi';
 import { queryTableList } from '@/services/list';
 
 interface TableListProps {
@@ -6,6 +6,7 @@ interface TableListProps {
 }
 
 export interface QueryTableState {
+  name: any;
   searchContentVal: string;
   statusVal: string;
   queryTableSource: TableListProps[];
@@ -18,24 +19,23 @@ export interface QueryTableType {
     queryTableList: Effect;
   };
   reducers: {
-    save: Reducer<QueryTableState>;
+    // save: Reducer<QueryTableState>;
     // 启用 immer 之后
-    // save: ImmerReducer<QueryTableState>;
+    save: ImmerReducer<QueryTableState>;
   };
 }
 
 const QueryTableModel: QueryTableType = {
   namespace: 'queryTable',
   state: {
+    name: '',
     searchContentVal: '',
     statusVal: '',
     queryTableSource: [],
   },
   effects: {
     *queryTableList(_, { call, put, select }) {
-      const { searchContentVal, statusVal } = yield select(
-        (state: QueryTableState) => state,
-      );
+      const { searchContentVal, statusVal } = yield select((state: QueryTableState) => state);
       const response = yield call(queryTableList, {
         searchContentVal,
         statusVal,
@@ -51,16 +51,16 @@ const QueryTableModel: QueryTableType = {
     },
   },
   reducers: {
-    save(state, action) {
-      return {
-        ...state,
-        ...action.payload,
-      };
-    },
-    // 启用 immer 之后
     // save(state, action) {
-    //   state.name = action.payload;
+    //   return {
+    //     ...state,
+    //     ...action.payload,
+    //   };
     // },
+    // 启用 immer 之后
+    save(state, action) {
+      state.name = action.payload;
+    },
   },
 };
 

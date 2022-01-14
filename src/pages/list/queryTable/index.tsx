@@ -19,7 +19,7 @@ type RecordType = {};
 const QueryTable: FC<QueryTableProps> = ({ dispatch, queryTable, loading }) => {
   const { queryTableSource } = queryTable;
   function setStepFormValues(record: any) {
-    console.log(record);
+    // console.log(record);
   }
   function getStatusText(status: number) {
     if (status === 1) {
@@ -87,25 +87,12 @@ const QueryTable: FC<QueryTableProps> = ({ dispatch, queryTable, loading }) => {
   return (
     <div>
       <FilterRegion />
-      <TableComponent
-        columns={columns}
-        dataSource={queryTableSource}
-        rowKey="id"
-        loading={loading}
-      />
+      <TableComponent columns={columns} dataSource={queryTableSource} rowKey="id" loading={loading} />
     </div>
   );
 };
 
-export default connect(
-  ({
-    queryTable,
-    loading,
-  }: {
-    queryTable: QueryTableState;
-    loading: Loading;
-  }) => ({
-    queryTable,
-    loading: loading.models.queryTable,
-  }),
-)(QueryTable);
+export default connect(({ queryTable, loading }: { queryTable: QueryTableState; loading: Loading }) => ({
+  queryTable,
+  loading: loading.models.queryTable,
+}))(QueryTable);

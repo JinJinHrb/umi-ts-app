@@ -1,10 +1,6 @@
 import React, { FC } from 'react';
 import { Form, Input, Button } from 'antd';
-import {
-  UserOutlined,
-  LockOutlined,
-  ExclamationCircleOutlined,
-} from '@ant-design/icons';
+import { UserOutlined, LockOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 
 import { connect, Dispatch } from 'umi';
 import { LoginModelState, Loading } from '@/models/connect';
@@ -25,16 +21,11 @@ interface ParentProps {
   onSubmit: (key: SubmitValProps) => void;
 }
 
-const LoginForm: FC<LoginFormProps & ParentProps> = ({
-  login,
-  dispatch,
-  onSubmit,
-  loading,
-}) => {
+const LoginForm: FC<LoginFormProps & ParentProps> = ({ login, dispatch, onSubmit, loading }) => {
   const { isError } = login;
 
   const onFinish = (values: any) => {
-    console.log('Received values of form: ', values);
+    // console.log('Received values of form: ', values);
     onSubmit(values);
   };
 
@@ -68,11 +59,7 @@ const LoginForm: FC<LoginFormProps & ParentProps> = ({
           },
         ]}
       >
-        <Input
-          prefix={<UserOutlined />}
-          onChange={handleChange}
-          placeholder="请输入用户名: admin"
-        />
+        <Input prefix={<UserOutlined />} onChange={handleChange} placeholder="请输入用户名: admin" />
       </Form.Item>
       <Form.Item
         name="password"
@@ -96,12 +83,7 @@ const LoginForm: FC<LoginFormProps & ParentProps> = ({
       </Form.Item>
 
       <Form.Item>
-        <Button
-          type="primary"
-          htmlType="submit"
-          loading={loading}
-          style={{ width: '100%' }}
-        >
+        <Button type="primary" htmlType="submit" loading={loading} style={{ width: '100%' }}>
           {loading ? '登录中' : '登录'}
         </Button>
       </Form.Item>
@@ -109,9 +91,7 @@ const LoginForm: FC<LoginFormProps & ParentProps> = ({
   );
 };
 
-export default connect(
-  ({ login, loading }: { login: LoginModelState; loading: Loading }) => ({
-    login,
-    loading: loading.models.login,
-  }),
-)(LoginForm);
+export default connect(({ login, loading }: { login: LoginModelState; loading: Loading }) => ({
+  login,
+  loading: loading.models.login,
+}))(LoginForm);

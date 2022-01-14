@@ -5,14 +5,14 @@ import Child from './components/child';
 
 export default () => {
   function onChange(date: any, dateString: string) {
-    console.log(date, dateString);
+    // console.log(date, dateString);
   }
   // 获取子组件实例值
   const childRef = useRef();
 
   // 打印子组件实例值
   function getChildRefHandle() {
-    console.log(childRef.current);
+    // console.log(childRef.current);
   }
 
   return (
