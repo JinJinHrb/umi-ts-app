@@ -65,7 +65,7 @@ const reorder = (list: any, startIndex: number, endIndex: number) => {
 // 重新记录数组顺序
 const reorder2 = (list: any, destIndex: number, destId: string) => {
   const result = JSON.parse(JSON.stringify(list));
-  const destObj = Items2.find(item => item.id === destId);
+  const destObj = Items2.find((item) => item.id === destId);
   if (destObj) {
     destObj.id = destObj.id + 'a1';
     result.splice(destIndex, 0, JSON.parse(JSON.stringify(destObj)));

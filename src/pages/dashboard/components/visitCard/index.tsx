@@ -20,14 +20,8 @@ interface VisitCardProps {
 }
 
 const VisitCard: FC<VisitCardProps> = ({ totalData, loading }) => {
-  const {
-    headCount,
-    surveyCount,
-    totalCount,
-    deadLine,
-    rate,
-    lossRate,
-  } = totalData;
+  const { headCount, surveyCount, totalCount, deadLine, rate, lossRate } =
+    totalData;
 
   const content2 = (
     <div style={{ padding: '0 4px' }}>

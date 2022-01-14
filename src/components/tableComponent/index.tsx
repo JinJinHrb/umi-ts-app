@@ -4,7 +4,7 @@ import { TableProps } from 'antd/lib/table/Table';
 
 type RType = {};
 
-const TableComponent: FC<TableProps<RType>> = props => {
+const TableComponent: FC<TableProps<RType>> = (props) => {
   const {
     style = {},
     loading = false,

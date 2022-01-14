@@ -18,7 +18,7 @@ interface ToolbarProps {
   onResetZoom: () => void;
 }
 
-const Toolbar: FC<ToolbarProps> = props => {
+const Toolbar: FC<ToolbarProps> = (props) => {
   const { onSave, onResetZoom } = props;
 
   return (

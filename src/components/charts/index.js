@@ -87,7 +87,7 @@ export default class Charts_component extends Component {
     return (
       <div>
         <div
-          ref={container => {
+          ref={(container) => {
             this.container = container;
           }}
           className={'container ' + (this.props.className || '')}

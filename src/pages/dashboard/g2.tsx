@@ -53,17 +53,13 @@ const Dashboard = () => {
 
     chart.axis('temperature', {
       label: {
-        formatter: val => {
+        formatter: (val) => {
           return `${val} °C`;
         },
       },
     });
 
-    chart
-      .line()
-      .position('month*temperature')
-      .color('city')
-      .shape('smooth');
+    chart.line().position('month*temperature').color('city').shape('smooth');
 
     chart.render();
   }, []);

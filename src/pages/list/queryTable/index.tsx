@@ -63,7 +63,7 @@ const QueryTable: FC<QueryTableProps> = ({ dispatch, queryTable, loading }) => {
     {
       title: '状态',
       dataIndex: 'status',
-      render: text => getStatusText(text),
+      render: (text) => getStatusText(text),
     },
     {
       title: '操作',

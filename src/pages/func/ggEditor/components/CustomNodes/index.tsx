@@ -79,8 +79,7 @@ const CustomNodes = () => {
             });
             group.addShape('image', {
               attrs: {
-                img:
-                  'https://gw.alipayobjects.com/zos/basement_prod/4f81893c-1806-4de4-aff3-9a6b266bc8a2.svg',
+                img: 'https://gw.alipayobjects.com/zos/basement_prod/4f81893c-1806-4de4-aff3-9a6b266bc8a2.svg',
                 x: 5,
                 y: 12,
                 width: 20,
