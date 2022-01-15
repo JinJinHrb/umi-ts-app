@@ -1,21 +1,25 @@
 import { defineConfig } from 'umi';
 import { resolve } from 'path';
+import { TITLE } from './src/utils/constants';
 
 export default defineConfig({
-  title: '管理平台业务模版',
+  title: TITLE,
   hash: true,
   antd: {},
   dva: {
     immer: true,
     hmr: true,
   },
-  locale: {
+
+  // Warning: The current popular language does not exist, please check the locales folder!
+  /* locale: {
     // default zh-CN
     default: 'zh-CN',
     // default true, when it is true, will use `navigator.language` overwrite default
     antd: true,
     baseNavigator: true,
-  },
+  }, */
+
   // 是否启用按需加载
   // dynamicImport: {},
 
@@ -39,4 +43,7 @@ export default defineConfig({
     },
   },
   mfsu: {},
+
+  // 如果用了styled-components 那么ssr会失败
+  //   extraBabelPlugins: ['babel-plugin-styled-components'],
 });

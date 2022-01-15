@@ -1,5 +1,20 @@
 export default [
   {
+    title: '表单方案比较',
+    link: '/demoForm',
+    key: 'formDemo',
+    icon: '',
+    children: [
+      {
+        title: 'react-hook-form',
+        link: '/demoForm/hookForm',
+        key: 'hookForm',
+        icon: '',
+        children: [],
+      },
+    ],
+  },
+  {
     title: 'Dashboard',
     link: '/dashboard',
     key: 'dashboard',

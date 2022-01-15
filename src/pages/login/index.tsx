@@ -4,6 +4,7 @@ import { Row, Col } from 'antd';
 import { ConnectState } from '@/models/connect';
 import LoginForm from './components/loginForm';
 import styles from './index.less';
+import { TITLE } from '@/utils/constants';
 
 export interface LoginLayoutProps {
   dispatch: Dispatch;
@@ -32,16 +33,8 @@ const Login: FC<LoginLayoutProps> = ({ dispatch }) => {
         <div className={styles.loginRight}>
           <div className={styles.loginContent}>
             <Row>
-              <Col
-                span={24}
-                className={styles.logo}
-                style={{ textAlign: 'center' }}
-              >
-                <span
-                  style={{ fontSize: 22, fontWeight: 600, color: '#1abc9c' }}
-                >
-                  数据管理平台
-                </span>
+              <Col span={24} className={styles.logo} style={{ textAlign: 'center' }}>
+                <span style={{ fontSize: 22, fontWeight: 600, color: '#1abc9c' }}>{TITLE}</span>
               </Col>
             </Row>
             <LoginForm onSubmit={handleSubmit} />
@@ -52,6 +45,4 @@ const Login: FC<LoginLayoutProps> = ({ dispatch }) => {
   );
 };
 
-export default connect(({ login }: { login: ConnectState }) => ({ login }))(
-  Login,
-);
+export default connect(({ login }: { login: ConnectState }) => ({ login }))(Login);
