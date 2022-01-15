@@ -6,6 +6,10 @@ export const StyledUl = styled.ul`
   padding-left: 0;
 `;
 
+export const StyledLi = styled.li`
+  margin-right: 15px;
+`;
+
 export const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;

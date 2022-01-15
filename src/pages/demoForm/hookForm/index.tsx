@@ -1,8 +1,11 @@
 import React, { FC, useEffect } from 'react';
 import { connect } from 'umi';
 import { QueryTableState, Loading } from '@/models/connect';
-import { StyledDiv, StyledUl, StyledSubPage } from './styled';
+import { StyledDiv, StyledUl, StyledLi, StyledSubPage } from './styled';
 import AsyncSetForm from '@/pages/demoForm/hookForm/components/asyncSet';
+import AsyncSubmitValidationForm from '@/pages/demoForm/hookForm/components/asyncSubmitValidation';
+import { Typography } from 'antd';
+const { Text } = Typography;
 
 const HookForms = (
   {
@@ -12,10 +15,16 @@ const HookForms = (
   return (
     <StyledDiv>
       <StyledUl>
-        <li>asyncSetFormValues</li>
+        <StyledLi>
+          <Text>Async Set Form Values</Text>
+        </StyledLi>
+        <StyledLi>
+          <Text type="secondary">Ant Design (secondary)</Text>
+        </StyledLi>
       </StyledUl>
       <StyledSubPage>
-        <AsyncSetForm />
+        {/* <AsyncSetForm /> */}
+        <AsyncSubmitValidationForm />
       </StyledSubPage>
     </StyledDiv>
   );
