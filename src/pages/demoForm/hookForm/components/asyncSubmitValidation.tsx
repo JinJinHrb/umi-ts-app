@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { StyledLabel, StyledH1, StyledInput } from './styled';
 
@@ -15,8 +15,14 @@ export default function App() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const [uploading, setUploading] = useState(false);
   const onSubmit = async (data: ISubmitData) => {
+    if (uploading) {
+      return;
+    }
+    setUploading(true);
     await sleep(2000);
+    setUploading(false);
     if (data.username === 'bill') {
       alert(JSON.stringify(data));
     } else {
@@ -37,7 +43,7 @@ export default function App() {
       <input placeholder="bluebill1049@hotmail.com" type="text" {...register('email')} />
 
       <div style={{ color: 'red' }}>{Object.keys(errors).length > 0 && 'There are errors, check your console.'}</div>
-      <StyledInput />
+      <StyledInput uploading={uploading} />
     </form>
   );
 }

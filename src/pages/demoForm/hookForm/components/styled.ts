@@ -18,9 +18,13 @@ export const StyledH1 = styled.h1`
   border-bottom: 1px solid rgb(79, 98, 148);
 `;
 
+interface ISubmit {
+  uploading?: boolean;
+}
+
 export const StyledInput = styled.input.attrs({ type: 'submit' })`
-  background: #ec5990;
   color: white;
+  background: ${(props: ISubmit) => (props.uploading ? '#d5adcc' : '#ec5990')};
   text-transform: uppercase;
   border: none;
   margin-top: 40px;
