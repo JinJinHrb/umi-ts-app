@@ -2,9 +2,9 @@ import React, { FC, memo } from 'react';
 import { Row, Col, Tooltip, Skeleton } from 'antd';
 import styles from '../../index.less';
 
-const userImg = require('@/assets/visit_user.png');
-const surveyImg = require('@/assets/visit_survey.png');
-const totalImg = require('@/assets/visit_total.png');
+import userImg from '@/assets/visit_user.png';
+import surveyImg from '@/assets/visit_survey.png';
+import totalImg from '@/assets/visit_total.png';
 
 type totalDataType = {
   headCount?: number;
@@ -20,30 +20,23 @@ interface VisitCardProps {
 }
 
 const VisitCard: FC<VisitCardProps> = ({ totalData, loading }) => {
-  const { headCount, surveyCount, totalCount, deadLine, rate, lossRate } =
-    totalData;
+  const { headCount, surveyCount, totalCount, deadLine, rate, lossRate } = totalData;
 
   const content2 = (
     <div style={{ padding: '0 4px' }}>
       <div className={styles.skywarp_tootip}>截至{deadLine}</div>
       <div className={styles.skywarp_tootip}>
-        <span
-          className={`${styles.tootip_point} ${styles.tootip_point_level1}`}
-        ></span>
+        <span className={`${styles.tootip_point} ${styles.tootip_point_level1}`}></span>
         <span style={{ marginRight: 4 }}>随访量:</span>
         {totalCount}
       </div>
       <div className={styles.skywarp_tootip}>
-        <span
-          className={`${styles.tootip_point} ${styles.tootip_point_level2}`}
-        ></span>
+        <span className={`${styles.tootip_point} ${styles.tootip_point_level2}`}></span>
         <span style={{ marginRight: 4 }}>随访率:</span>
         {rate}%
       </div>
       <div className={styles.skywarp_tootip}>
-        <span
-          className={`${styles.tootip_point} ${styles.tootip_point_level3}`}
-        ></span>
+        <span className={`${styles.tootip_point} ${styles.tootip_point_level3}`}></span>
         <span style={{ marginRight: 4 }}>失访率:</span>
         {lossRate}%
       </div>
