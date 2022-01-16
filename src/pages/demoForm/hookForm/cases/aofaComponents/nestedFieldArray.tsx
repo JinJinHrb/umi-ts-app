@@ -1,6 +1,7 @@
 import React from 'react';
 import { useFieldArray } from 'react-hook-form';
 import { StyledInput, StyledNormalButton } from '@/pages/demoForm/hookForm/cases/styled';
+import { StyledSpace, StyledHr } from './styled';
 
 export default ({ nestIndex, control, register }) => {
   const { fields, remove, append } = useFieldArray({
@@ -27,6 +28,8 @@ export default ({ nestIndex, control, register }) => {
         );
       })}
 
+      <StyledSpace />
+
       <StyledNormalButton
         onClick={() =>
           append({
@@ -38,7 +41,7 @@ export default ({ nestIndex, control, register }) => {
         Append Nested
       </StyledNormalButton>
 
-      <hr />
+      <StyledHr />
     </div>
   );
 };

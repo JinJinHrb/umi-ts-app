@@ -65,7 +65,7 @@ export const StyledNormalButton = styled.button.attrs({ type: 'button' })`
   color: white;
   border: none;
   text-transform: uppercase;
-  padding: 10px 20px;
+  padding: 5px;
   border-radius: 4px;
 `;
 
