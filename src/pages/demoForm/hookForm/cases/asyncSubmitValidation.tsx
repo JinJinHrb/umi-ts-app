@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { StyledLabel, StyledH1, StyledInput } from './styled';
+import { StyledLabel, StyledH1, StyledSubmitInput } from './styled';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -43,7 +43,7 @@ export default function App() {
       <input placeholder="bluebill1049@hotmail.com" type="text" {...register('email')} />
 
       <div style={{ color: 'red' }}>{Object.keys(errors).length > 0 && 'There are errors, check your console.'}</div>
-      <StyledInput uploading={uploading} />
+      <StyledSubmitInput uploading={uploading} />
     </form>
   );
 }

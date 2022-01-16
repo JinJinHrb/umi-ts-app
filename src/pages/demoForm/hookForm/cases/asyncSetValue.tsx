@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { StyledLabel, StyledH1, StyledInput } from './styled';
+import { StyledLabel, StyledH1, StyledSubmitInput } from './styled';
 
 export default function App() {
   const { register, handleSubmit, reset } = useForm();
@@ -27,7 +27,7 @@ export default function App() {
       <StyledLabel>Last name</StyledLabel>
       <input {...register('lastName')} />
       {/* <input type="submit" /> */}
-      <StyledInput />
+      <StyledSubmitInput />
     </form>
   );
 }
