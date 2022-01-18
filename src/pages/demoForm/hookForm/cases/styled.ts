@@ -27,6 +27,10 @@ export const StyledP = styled.p`
   }
 `;
 
+export const StyledErrorP = styled(StyledP)`
+  color: #bf1650;
+`;
+
 interface ISubmit {
   uploading?: boolean;
   onClick?: any;

@@ -1,9 +1,10 @@
 import React from 'react';
-import { useFieldArray } from 'react-hook-form';
+import { useFieldArray, Control, FieldValues } from 'react-hook-form';
 import { StyledInput, StyledNormalButton } from '@/pages/demoForm/hookForm/cases/styled';
 import { StyledSpace, StyledHr } from './styled';
+import { TNestedFieldArray } from './types.d';
 
-export default ({ nestIndex, control, register }) => {
+export default ({ nestIndex, control, register }: TNestedFieldArray) => {
   const { fields, remove, append } = useFieldArray({
     control,
     name: `test.${nestIndex}.nestedArray`,

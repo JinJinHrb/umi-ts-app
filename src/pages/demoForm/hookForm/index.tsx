@@ -6,7 +6,8 @@ import AsyncSetValueForm from '@/pages/demoForm/hookForm/cases/asyncSetValue';
 import AsyncSubmitValidationForm from '@/pages/demoForm/hookForm/cases/asyncSubmitValidation';
 import AsyncFieldValidationForm from '@/pages/demoForm/hookForm/cases/asyncFieldValidation';
 import ArrayOfFieldArrayForm from '@/pages/demoForm/hookForm/cases/arrayOfFieldArray';
-
+import CustomValidation from '@/pages/demoForm/hookForm/cases/customValidation';
+import CustomInputUncontrolled from '@/pages/demoForm/hookForm/cases/customInputUncontrolled';
 import { Typography } from 'antd';
 const { Text } = Typography;
 
@@ -30,6 +31,16 @@ const options = [
     text: 'Array of Field Array',
     component: <ArrayOfFieldArrayForm />,
     key: 'arrayOfFieldArray',
+  },
+  {
+    text: 'Custom Validation',
+    component: <CustomValidation />,
+    key: 'customValidation',
+  },
+  {
+    text: 'Custom Input uncontrolled',
+    component: <CustomInputUncontrolled />,
+    key: 'customInputUncontrolled',
   },
 ];
 

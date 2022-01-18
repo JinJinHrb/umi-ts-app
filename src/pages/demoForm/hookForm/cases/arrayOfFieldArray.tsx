@@ -18,13 +18,21 @@ const defaultValues = {
 };
 
 export default function App() {
-  const { control, register, handleSubmit, getValues, errors, reset, setValue } = useForm({
+  const {
+    control,
+    register,
+    handleSubmit,
+    getValues,
+    reset,
+    setValue,
+    formState: { errors },
+  } = useForm({
     defaultValues,
   });
-  const onSubmit = (data) => console.log('data', data);
+  const onSubmit = (data: any) => alert(JSON.stringify(data));
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit as any)}>
       <StyledH1>Array of Array Fields</StyledH1>
       <StyledP>The following example demonstrate the ability of building nested array fields.</StyledP>
 

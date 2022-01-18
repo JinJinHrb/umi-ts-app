@@ -2,12 +2,13 @@ import React from 'react';
 import { useFieldArray } from 'react-hook-form';
 import NestedArray from './nestedFieldArray';
 import { StyledInput, StyledCounterSpan, StyledNormalButton } from '@/pages/demoForm/hookForm/cases/styled';
-
 import { StyledSection, StyledUl, StyledLi, StyledRowFlexWrapper, StyledSpace } from './styled';
+import { IFieldArray } from './types.d';
 
 let renderCount = 0;
 
-export default function Fields({ control, register, setValue, getValues }) {
+export default function Fields(props: any) {
+  const { control, register, setValue, getValues }: IFieldArray = props;
   const { fields, append, remove, prepend } = useFieldArray({
     control,
     name: 'test',
