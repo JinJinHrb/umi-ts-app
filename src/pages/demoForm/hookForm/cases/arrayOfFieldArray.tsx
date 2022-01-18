@@ -1,7 +1,12 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import FieldArray from '@/pages/demoForm/hookForm/cases/aofaComponents/fieldArray';
-import { StyledH1, StyledP, StyledNormalButton, StyledSubmitInput } from '@/pages/demoForm/hookForm/cases/styled';
+import {
+  StyledH1,
+  StyledWarningP,
+  StyledNormalButton,
+  StyledSubmitInput,
+} from '@/pages/demoForm/hookForm/cases/styled';
 import { StyledFlexWrapper } from '@/pages/demoForm/hookForm/cases/aofaComponents/styled';
 
 const defaultValues = {
@@ -34,7 +39,7 @@ export default function App() {
   return (
     <form onSubmit={handleSubmit(onSubmit as any)}>
       <StyledH1>Array of Array Fields</StyledH1>
-      <StyledP>The following example demonstrate the ability of building nested array fields.</StyledP>
+      <StyledWarningP>The following example demonstrate the ability of building nested array fields.</StyledWarningP>
 
       <StyledFlexWrapper>
         <FieldArray {...{ control, register, defaultValues, getValues, setValue, errors }} />

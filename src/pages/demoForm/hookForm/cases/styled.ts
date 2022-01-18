@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import TextField from '@mui/material/TextField';
 
 export const StyledLabel = styled.label`
   line-height: 2;
@@ -21,13 +22,16 @@ export const StyledH1 = styled.h1`
 export const StyledP = styled.p`
   color: white;
   margin-bottom: 40px;
+`;
+
+export const StyledWarningP = styled(StyledP)`
   &:before {
     display: inline;
     content: '⚠ ';
   }
 `;
 
-export const StyledErrorP = styled(StyledP)`
+export const StyledErrorP = styled(StyledWarningP)`
   color: #bf1650;
 `;
 
@@ -93,4 +97,14 @@ export const StyledCounterSpan = styled.span`
   position: fixed;
   bottom: 60px;
   right: 80px;
+`;
+
+export const StyledLightTextField = styled(TextField)`
+  & input {
+    color: white;
+  }
+  & input::placeholder {
+    color: white;
+    opacity: 0.5;
+  }
 `;

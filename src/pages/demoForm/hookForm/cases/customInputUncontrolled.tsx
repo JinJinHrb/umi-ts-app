@@ -5,6 +5,8 @@ import Select from 'react-select';
 import TextField from '@mui/material/TextField';
 import { Input as StrapInput } from 'reactstrap';
 import { Input } from 'antd';
+import { StyledLabel, StyledH1, StyledSubmitInput, StyledP, StyledLightTextField } from './styled';
+import { StyledSpace } from './aofaComponents/styled';
 
 const options = [
   { value: 'chocolate', label: 'Chocolate' },
@@ -15,7 +17,7 @@ const options = [
 const MyInput = React.forwardRef(({ name, label, ...rest }, ref) => {
   return (
     <>
-      <label htmlFor={name}>{label}</label>
+      <StyledLabel htmlFor={name}>{label}</StyledLabel>
       <input name={name} placeholder="Jane" {...rest} ref={ref} />
     </>
   );
@@ -39,7 +41,7 @@ export default function App() {
     <div className="App">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <TextField {...register('muiInput')} placeholder="mui/textfield" />
+          <StyledLightTextField {...register('muiInput')} placeholder="mui/textfield" />
         </div>
 
         <div>
@@ -52,6 +54,8 @@ export default function App() {
           />
         </div>
 
+        <StyledSpace />
+
         <div>
           <Controller
             name="strap"
@@ -63,7 +67,7 @@ export default function App() {
         </div>
 
         <div>
-          <label className="reactSelectLabel">React select</label>
+          <StyledLabel className="reactSelectLabel">React select</StyledLabel>
 
           <Controller
             name="filters"
@@ -88,21 +92,27 @@ export default function App() {
         </div>
 
         <div>
-          <label htmlFor="lastName">Last Name</label>
+          <StyledLabel htmlFor="lastName">Last Name</StyledLabel>
           <input placeholder="Luo" {...register('lastName')} />
         </div>
 
         <div>
-          <label htmlFor="email">Email</label>
+          <StyledLabel htmlFor="email">Email</StyledLabel>
           <input placeholder="bluebill1049@hotmail.com" type="email" {...register('email')} />
         </div>
-        <button type="submit">Submit</button>
+
+        <StyledSpace />
+
+        {/* <button type="submit">Submit</button> */}
+
+        <StyledSubmitInput />
+
         {submitted && (
-          <div>
+          <StyledP>
             Submitted Data:
             <br />
             {JSON.stringify(submitted)}
-          </div>
+          </StyledP>
         )}
       </form>
     </div>
