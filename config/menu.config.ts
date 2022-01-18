@@ -12,6 +12,20 @@ export default [
         icon: '',
         children: [],
       },
+      {
+        title: 'alibaba/x-render',
+        link: '/demoForm/formRender',
+        key: 'formRender',
+        icon: '',
+        children: [],
+      },
+      {
+        title: 'alibaba/formily',
+        link: '/demoForm/formily',
+        key: 'formily',
+        icon: '',
+        children: [],
+      },
     ],
   },
   {
