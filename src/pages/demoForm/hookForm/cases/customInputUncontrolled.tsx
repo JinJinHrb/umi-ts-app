@@ -14,7 +14,8 @@ const options = [
   { value: 'vanilla', label: 'Vanilla' },
 ];
 
-const MyInput = React.forwardRef(({ name, label, ...rest }, ref) => {
+const MyInput = React.forwardRef((props: any, ref) => {
+  const { name, label, ...rest } = props;
   return (
     <>
       <StyledLabel htmlFor={name}>{label}</StyledLabel>
@@ -31,8 +32,8 @@ export default function App() {
       strap: '',
       filters: [],
     },
-  });
-  const onSubmit = (data) => {
+  } as any);
+  const onSubmit = (data: any) => {
     setSubmitted(data);
     console.log(data);
   };
@@ -73,22 +74,13 @@ export default function App() {
             name="filters"
             control={control}
             render={({ field }) => {
-              return (
-                <Select
-                  className="reactSelect"
-                  name="filters"
-                  placeholder="Filters"
-                  options={options}
-                  isMulti
-                  {...field}
-                />
-              );
+              return <Select className="reactSelect" placeholder="Filters" options={options} isMulti {...field} />;
             }}
           />
         </div>
 
         <div>
-          <MyInput name="firstName" label="First Name" {...register('firstName')} />
+          <MyInput label={'First Name'} {...register('firstName')} />
         </div>
 
         <div>
