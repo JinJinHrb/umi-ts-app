@@ -9,6 +9,18 @@ const submitHandler = (data: any = {}) => {
   alert(JSON.stringify(data));
 };
 
+/**
+ *  拓展组件库:
+	    FormItem, FormLayout, Input, FormButtonGroup, Submit
+
+    UI桥接:
+	    FormProvider, FormConsumer, Field 
+
+    领域模型:
+	    createForm
+ * 
+ */
+
 export default () => {
   return (
     <FormProvider form={form}>

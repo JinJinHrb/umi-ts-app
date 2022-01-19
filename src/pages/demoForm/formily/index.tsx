@@ -3,6 +3,8 @@ import { connect } from 'umi';
 import { QueryTableState, Loading } from '@/models/connect';
 import { StyledDiv, StyledUl, StyledLiOption, StyledSubPage } from './styled';
 import BasicForm from '@/pages/demoForm/formily/cases/basic';
+import VerifyCodeForm from '@/pages/demoForm/formily/cases/VerifyCode/index';
+import VerifyCodeBySchema from '@/pages/demoForm/formily/cases/VerifyCodeBySchema/index';
 import { Typography } from 'antd';
 import './cases/styles.less';
 
@@ -13,6 +15,16 @@ const options = [
     text: 'Basic',
     component: <BasicForm />,
     key: 'basic',
+  },
+  {
+    text: 'VerifyCode',
+    component: <VerifyCodeForm />,
+    key: 'verifyCode',
+  },
+  {
+    text: 'verifyCodeBySchema',
+    component: <VerifyCodeBySchema />,
+    key: 'verifyCodeBySchema',
   },
 ];
 
