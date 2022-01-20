@@ -3,28 +3,14 @@ import { connect } from 'umi';
 import { QueryTableState, Loading } from '@/models/connect';
 import { StyledDiv, StyledUl, StyledLiOption, StyledSubPage } from './styled';
 import BasicForm from '@/pages/demoForm/formily/cases/basic';
-import VerifyCodeForm from '@/pages/demoForm/formily/cases/VerifyCode/index';
-import VerifyCodeBySchema from '@/pages/demoForm/formily/cases/VerifyCodeBySchema/index';
 import { Typography } from 'antd';
-import './cases/styles.less';
-
 const { Text } = Typography;
 
 const options = [
   {
-    text: 'Basic',
+    text: 'BasicForm',
     component: <BasicForm />,
-    key: 'basic',
-  },
-  {
-    text: 'VerifyCode',
-    component: <VerifyCodeForm />,
-    key: 'verifyCode',
-  },
-  {
-    text: 'verifyCodeBySchema',
-    component: <VerifyCodeBySchema />,
-    key: 'verifyCodeBySchema',
+    key: 'BasicForm',
   },
 ];
 
@@ -32,7 +18,7 @@ interface IRefs {
   ul: any;
 }
 
-const FormRender = (
+const HookForms = (
   {
     /* dispatch, queryTable, loading  */
   },
@@ -53,7 +39,7 @@ const FormRender = (
   return (
     <StyledDiv>
       <StyledUl>{optionLis}</StyledUl>
-      <StyledSubPage className={'formily-cases'}>{options[liSelected]?.component}</StyledSubPage>
+      <StyledSubPage>{options[liSelected]?.component}</StyledSubPage>
     </StyledDiv>
   );
 };
@@ -61,4 +47,4 @@ const FormRender = (
 export default connect(({ queryTable, loading }: { queryTable: QueryTableState; loading: Loading }) => ({
   queryTable,
   loading: loading.models.queryTable,
-}))(FormRender);
+}))(HookForms);

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { useForm, Controller } from 'react-hook-form';
 import Select from 'react-select';
-import TextField from '@mui/material/TextField';
 import { Input as StrapInput } from 'reactstrap';
 import { Input } from 'antd';
 import { StyledLabel, StyledH1, StyledSubmitInput, StyledP, StyledLightTextField } from './styled';
