@@ -5,6 +5,7 @@ import { Breadcrumb } from 'antd';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { StyledDiv, StyledHeaderElement, StyledHeaderElementTouch } from './styled';
 import { useLocation, useRouteMatch } from 'umi';
+import { LEFT_DOCKER_WIDTH } from '@/utils/constants';
 import _ from 'lodash';
 
 interface IBaseLayoutHeader {
@@ -37,7 +38,7 @@ export default function ({ collapsed, setCollapsed }: IBaseLayoutHeader) {
   return (
     <>
       <StyledDiv>
-        {!collapsed && <span>{TITLE}</span>}
+        {!collapsed && <span style={{ width: LEFT_DOCKER_WIDTH - 40 }}>{TITLE}</span>}
         <StyledHeaderElementTouch>
           <MenuFold onClick={() => setCollapsed(!collapsed)} />
         </StyledHeaderElementTouch>

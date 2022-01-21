@@ -7,9 +7,15 @@
     display: flex;
     justify-content: space-between;
     height: 44px;
-    padding: 0 24px;
+
     line-height: 44px;
     background: url(../../assets/headerbg.png) 100%/100% no-repeat;
+    &:not(.shrink) {
+      padding: 0 24px;
+    }
+    &.shrink {
+      padding-left: 10px;
+    }
   }
 
   /***系统内容区域***/
