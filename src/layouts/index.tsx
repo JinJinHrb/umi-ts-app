@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Redirect } from 'umi';
 import SimpleLayout from './simpleLayout';
 import BaseLayout from './baseLayout';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 export default function (props: any) {
+  const queryClient = useMemo(() => new QueryClient(), []);
+
   // 你可以把它替换成你自己的登录认证规则（比如判断 token 是否存在）
   const isLogin = window.localStorage.getItem('userid');
   const { pathname } = props.location;
@@ -16,5 +19,9 @@ export default function (props: any) {
     return <Redirect to={`/login?timestamp=${new Date().getTime()}`} />;
   }
 
-  return <BaseLayout>{props.children}</BaseLayout>;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <BaseLayout>{props.children}</BaseLayout>;
+    </QueryClientProvider>
+  );
 }

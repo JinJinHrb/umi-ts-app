@@ -19,6 +19,8 @@ import {
 import { action } from '@formily/reactive';
 import { Card, Button, Spin } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import { umiConsole } from '@/utils/utils';
+import { queryGeoLocationData } from '@/services/geo';
 
 const form = createForm({
   validateFirst: true,
@@ -62,31 +64,34 @@ const SchemaField = createSchemaField({
     fetchAddress: (field: any) => {
       const transform = (data = {}) => {
         return Object.entries(data).reduce((buf, [key, value]) => {
-          if (typeof value === 'string')
-            return buf.concat({
+          if (typeof value === 'string') {
+            const obj = {
               label: value,
               value: key,
-            });
+            };
+            return buf.concat(obj as any);
+          }
           const { name, code, cities, districts } = value as IAddress;
           const _cities = transform(cities) as any;
           const _districts = transform(districts) as any;
-          return buf.concat({
+          const obj = {
             label: name,
             value: code,
             children: _cities.length ? _cities : _districts.length ? _districts : undefined,
-          });
+          };
+          return buf.concat(obj as any);
         }, []);
       };
 
       field.loading = true;
-      fetch('//unpkg.com/china-location/dist/location.json')
-        .then((res) => res.json())
-        .then(
-          (action as { bound: Function }).bound((data: any) => {
-            field.dataSource = transform(data);
-            field.loading = false;
-          }),
-        );
+      //   fetch('//unpkg.com/china-location/dist/location.json')
+      // .then((res) => res.json())
+      queryGeoLocationData().then(
+        (action as { bound: Function }).bound((data: any) => {
+          field.dataSource = transform(data);
+          field.loading = false;
+        }),
+      );
     },
   },
 });
@@ -271,6 +276,9 @@ const schema = {
 };
 
 export default () => {
+  useEffect(() => {
+    umiConsole.log('details.tsx/.../fetchAddress #95');
+  }, []);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setTimeout(() => {

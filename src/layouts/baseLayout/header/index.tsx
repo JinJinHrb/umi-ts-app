@@ -38,7 +38,7 @@ export default function ({ collapsed, setCollapsed }: IBaseLayoutHeader) {
   return (
     <>
       <StyledDiv>
-        {!collapsed && <span style={{ width: LEFT_DOCKER_WIDTH - 40 }}>{TITLE}</span>}
+        {!collapsed && <span style={{ width: LEFT_DOCKER_WIDTH - 70 }}>{TITLE}</span>}
         <StyledHeaderElementTouch>
           <MenuFold onClick={() => setCollapsed(!collapsed)} />
         </StyledHeaderElementTouch>
