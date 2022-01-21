@@ -9,6 +9,7 @@ import ArrayOfFieldArrayForm from '@/pages/demoForm/hookForm/cases/arrayOfFieldA
 import CustomValidation from '@/pages/demoForm/hookForm/cases/customValidation';
 import CustomInputUncontrolled from '@/pages/demoForm/hookForm/cases/customInputUncontrolled';
 import { Typography } from 'antd';
+import ErrorBoundary from '@/components/common/ErrorBounary';
 const { Text } = Typography;
 
 const options = [
@@ -44,10 +45,6 @@ const options = [
   },
 ];
 
-interface IRefs {
-  ul: any;
-}
-
 const HookForms = (
   {
     /* dispatch, queryTable, loading  */
@@ -67,10 +64,12 @@ const HookForms = (
   });
 
   return (
-    <StyledDiv>
-      <StyledUl>{optionLis}</StyledUl>
-      <StyledSubPage>{options[liSelected]?.component}</StyledSubPage>
-    </StyledDiv>
+    <ErrorBoundary>
+      <StyledDiv>
+        <StyledUl>{optionLis}</StyledUl>
+        <StyledSubPage>{options[liSelected]?.component}</StyledSubPage>
+      </StyledDiv>
+    </ErrorBoundary>
   );
 };
 

@@ -2,15 +2,31 @@ import React, { useRef, useState } from 'react';
 import { connect } from 'umi';
 import { QueryTableState, Loading } from '@/models/connect';
 import { StyledDiv, StyledUl, StyledLiOption, StyledSubPage } from './styled';
-import BasicForm from '@/pages/demoForm/formily/cases/basic';
 import { Typography } from 'antd';
+import BasicForm from '@/pages/demoForm/formily/cases/basic';
+import DetailsForm from '@/pages/demoForm/formily/cases/details';
+import ValidatesForm from '@/pages/demoForm/formily/cases/validates';
+// import '@formily/antd/dist/antd.css';
+import 'antd/dist/antd.css';
+import './styles.less';
+
 const { Text } = Typography;
 
 const options = [
   {
     text: 'BasicForm',
-    component: <BasicForm />,
+    component: <BasicForm className={'formily-demos'} />,
     key: 'BasicForm',
+  },
+  {
+    text: 'DetailsForm',
+    component: <DetailsForm />,
+    key: 'DetailsForm',
+  },
+  {
+    text: 'ValidatesForm',
+    component: <ValidatesForm className={'formily-demos'} />,
+    key: 'ValidatesForm',
   },
 ];
 

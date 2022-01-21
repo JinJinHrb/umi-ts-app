@@ -21,9 +21,9 @@ const submitHandler = (data: any = {}) => {
  * 
  */
 
-export default () => {
+export default (props: any) => {
   return (
-    <FormProvider form={form}>
+    <FormProvider form={form} {...props}>
       <FormLayout layout="vertical">
         <Field
           name="input"
