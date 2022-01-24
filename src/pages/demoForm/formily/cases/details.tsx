@@ -21,6 +21,9 @@ import { Card, Button, Spin } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { umiConsole } from '@/utils/utils';
 import { queryGeoLocationData } from '@/services/geo';
+import { GET_GEO_LOCATION_QUERY_KEY } from '@/utils/constants';
+import { queryClient } from '@/utils/reactQuery';
+import _ from 'lodash';
 
 const form = createForm({
   validateFirst: true,
@@ -86,12 +89,19 @@ const SchemaField = createSchemaField({
       field.loading = true;
       //   fetch('//unpkg.com/china-location/dist/location.json')
       // .then((res) => res.json())
-      queryGeoLocationData().then(
-        (action as { bound: Function }).bound((data: any) => {
-          field.dataSource = transform(data);
-          field.loading = false;
-        }),
-      );
+      //   queryGeoLocationData()
+      queryClient
+        .fetchInfiniteQuery(GET_GEO_LOCATION_QUERY_KEY, queryGeoLocationData)
+        .then((data) => {
+          umiConsole.log(1, 'fetchAddress #95 data:', data);
+          return _.get(data, 'pages[0]');
+        })
+        .then(
+          (action as { bound: Function }).bound((data: any) => {
+            field.dataSource = transform(data);
+            field.loading = false;
+          }),
+        );
     },
   },
 });
@@ -276,9 +286,6 @@ const schema = {
 };
 
 export default () => {
-  useEffect(() => {
-    umiConsole.log('details.tsx/.../fetchAddress #95');
-  }, []);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setTimeout(() => {

@@ -21,7 +21,7 @@ export const queryKeysByPath = (pathname: string): { openKey: string; selectKey:
  */
 export const umiConsole =
   process.env.NODE_ENV === 'development'
-    ? (function () {
+    ? (function (this: any) {
         const ctx = this;
         const getFn = function (op: string) {
           return function (...args: any[]) {
@@ -56,7 +56,7 @@ export const umiConsole =
               args.push('color: darkGreen');
               args.push(...argSubArr2);
             }
-            console[op].apply(ctx, args);
+            (console as any)[op].apply(ctx, args);
           };
         };
         const rtn = {} as typeof console;
@@ -66,7 +66,7 @@ export const umiConsole =
             return _.isFunction(v);
           })
           .forEach((op) => {
-            rtn[op] = getFn(op);
+            (rtn as any)[op] = getFn(op);
           });
         return rtn;
       })()
@@ -80,9 +80,9 @@ export const umiConsole =
           })
           .forEach((op) => {
             if (['log', 'warn'].includes(op)) {
-              rtn[op] = nilFn;
+              (rtn as any)[op] = nilFn;
             } else {
-              rtn[op] = console[op];
+              (rtn as any)[op] = (console as any)[op];
             }
           });
         return rtn;

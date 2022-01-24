@@ -2,11 +2,10 @@ import React, { useMemo } from 'react';
 import { Redirect } from 'umi';
 import SimpleLayout from './simpleLayout';
 import BaseLayout from './baseLayout';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClientProvider } from 'react-query';
+import { queryClient } from '@/utils/reactQuery';
 
 export default function (props: any) {
-  const queryClient = useMemo(() => new QueryClient(), []);
-
   // 你可以把它替换成你自己的登录认证规则（比如判断 token 是否存在）
   const isLogin = window.localStorage.getItem('userid');
   const { pathname } = props.location;
