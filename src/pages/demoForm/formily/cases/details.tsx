@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { createForm } from '@formily/core';
 import { createSchemaField } from '@formily/react';
 import {
@@ -19,11 +19,11 @@ import {
 import { action } from '@formily/reactive';
 import { Card, Button, Spin } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import { umiConsole } from '@/utils/utils';
 import { queryGeoLocationData } from '@/services/geo';
 import { GET_GEO_LOCATION_QUERY_KEY } from '@/utils/constants';
 import { queryClient } from '@/utils/reactQuery';
 import _ from 'lodash';
+import { umiConsole } from '@/utils/utils';
 
 const form = createForm({
   validateFirst: true,
@@ -50,6 +50,12 @@ interface IAddress {
   districts: string;
 }
 
+interface IObj {
+  label: string;
+  value: string;
+  children?: IObj[];
+}
+
 const SchemaField = createSchemaField({
   components: {
     FormItem,
@@ -68,7 +74,7 @@ const SchemaField = createSchemaField({
       const transform = (data = {}) => {
         return Object.entries(data).reduce((buf, [key, value]) => {
           if (typeof value === 'string') {
-            const obj = {
+            const obj: IObj = {
               label: value,
               value: key,
             };
@@ -77,29 +83,33 @@ const SchemaField = createSchemaField({
           const { name, code, cities, districts } = value as IAddress;
           const _cities = transform(cities) as any;
           const _districts = transform(districts) as any;
-          const obj = {
+          const obj: IObj = {
             label: name,
             value: code,
-            children: _cities.length ? _cities : _districts.length ? _districts : undefined,
           };
+          const children = _cities.length ? _cities : _districts.length ? _districts : undefined;
+          if (children) {
+            obj.children = children;
+          }
           return buf.concat(obj as any);
         }, []);
       };
 
-      field.loading = true;
+      //   field.loading = true; // 无作用
       //   fetch('//unpkg.com/china-location/dist/location.json')
       // .then((res) => res.json())
       //   queryGeoLocationData()
       queryClient
         .fetchInfiniteQuery(GET_GEO_LOCATION_QUERY_KEY, queryGeoLocationData)
         .then((data) => {
-          umiConsole.log(1, 'fetchAddress #95 data:', data);
+          //   umiConsole.log('fetchAddress #95 data:', data);
           return _.get(data, 'pages[0]');
         })
         .then(
           (action as { bound: Function }).bound((data: any) => {
             field.dataSource = transform(data);
-            field.loading = false;
+            // field.loading = false; // 无作用
+            // umiConsole.log('details/SchemaField #103 dataSource:', field.dataSource);
           }),
         );
     },
@@ -295,14 +305,22 @@ export default () => {
         lastName: 'Martin',
         email: 'aston_martin@aston.com',
         gender: 1,
-        birthday: '1836-01-03',
-        address: ['110000', '110000', '110101'],
+        birthday: '1997-01-03',
+        // address: '310000', '310000', '310110',
+        address: ['310000', '310000', '310110'],
         idCard: [
           {
-            name: 'this is image',
+            name: 'fake id card',
             thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
             uid: 'rc-upload-1615825692847-2',
             url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+          },
+          // public/idCards/WX20220126-115446.png
+          {
+            name: 'student card',
+            thumbUrl: '/idCards/WX20220126-115446.png',
+            uid: 'rc-upload-1615825692847-3',
+            url: '/idCards/WX20220126-115446.png',
           },
         ],
         contacts: [
@@ -313,6 +331,13 @@ export default () => {
       setLoading(false);
     }, 2000);
   }, []);
+
+  const submitHandler = useCallback((data: any) => {
+    alert(JSON.stringify(data));
+    umiConsole.log('submitHandler #338 data:', data);
+    // form.setValuesIn('username', 'WangFan');
+  }, []);
+
   return (
     <div
       style={{
@@ -324,7 +349,7 @@ export default () => {
     >
       <Card title="编辑用户" style={{ width: 620 }}>
         <Spin spinning={loading}>
-          <Form form={form} labelCol={5} wrapperCol={16} onAutoSubmit={console.log}>
+          <Form form={form} labelCol={5} wrapperCol={16} onAutoSubmit={submitHandler}>
             <SchemaField schema={schema} />
             <FormButtonGroup.FormItem>
               <Submit block size="large">

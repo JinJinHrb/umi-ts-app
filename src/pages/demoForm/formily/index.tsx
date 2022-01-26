@@ -6,6 +6,10 @@ import { Typography } from 'antd';
 import BasicForm from '@/pages/demoForm/formily/cases/basic';
 import DetailsForm from '@/pages/demoForm/formily/cases/details';
 import ValidatesForm from '@/pages/demoForm/formily/cases/validates';
+import TraditionalControlledForm from '@/pages/demoForm/formily/cases/traditionalControlledForm';
+import ResponsiveControlledForm from '@/pages/demoForm/formily/cases/responsiveControlledForm';
+import SchemaControlledForm from '@/pages/demoForm/formily/cases/schemaControlledForm';
+import ArrayItemsForm from '@/pages/demoForm/formily/cases/ArrayItems/json';
 // import '@formily/antd/dist/antd.css';
 import 'antd/dist/antd.css';
 import './styles.less';
@@ -27,6 +31,26 @@ const options = [
     text: 'ValidatesForm',
     component: <ValidatesForm className={'formily-demos'} />,
     key: 'ValidatesForm',
+  },
+  {
+    text: 'TraditionalControlledForm',
+    component: <TraditionalControlledForm className={'formily-demos'} />,
+    key: 'TraditionalControlledForm',
+  },
+  {
+    text: 'ResponsiveControlledForm',
+    component: <ResponsiveControlledForm className={'formily-demos'} />,
+    key: 'ResponsiveControlledForm',
+  },
+  {
+    text: 'SchemaControlledForm',
+    component: <SchemaControlledForm className={'formily-demos'} />,
+    key: 'SchemaControlledForm',
+  },
+  {
+    text: 'ArrayItemsForm',
+    component: <ArrayItemsForm className={'formily-demos'} />,
+    key: 'ArrayItemsForm',
   },
 ];
 
