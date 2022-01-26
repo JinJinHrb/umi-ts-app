@@ -3,8 +3,10 @@ import { createForm } from '@formily/core';
 import { createSchemaField } from '@formily/react';
 import { Form, FormItem, Input, Password, Submit } from '@formily/antd';
 import { Tabs, Card } from 'antd';
-import * as ICONS from '@ant-design/icons';
+import * as ANTD_ICONS from '@ant-design/icons';
 import { VerifyCode } from './VerifyCode';
+
+const ICONS = ANTD_ICONS as any;
 
 const normalForm = createForm({
   validateFirst: true,

@@ -12,7 +12,7 @@ export default observer((props: PropsType) => {
   const fieldSchema = useFieldSchema();
   const buttonStyle = {
     border: '1px solid #ccc',
-    borderRadius: '1px',
+    borderRadius: '2px',
     background: 'grey',
     marginTop: '15px',
     lineHeight: '1.1rem',

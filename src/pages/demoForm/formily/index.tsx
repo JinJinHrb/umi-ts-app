@@ -10,6 +10,10 @@ import TraditionalControlledForm from '@/pages/demoForm/formily/cases/traditiona
 import ResponsiveControlledForm from '@/pages/demoForm/formily/cases/responsiveControlledForm';
 import SchemaControlledForm from '@/pages/demoForm/formily/cases/schemaControlledForm';
 import ArrayItemsForm from '@/pages/demoForm/formily/cases/ArrayItems/json';
+import PassiveChainReactionForm from '@/pages/demoForm/formily/cases/chainReaction/passive';
+import InitiactiveChainReactionForm from '@/pages/demoForm/formily/cases/chainReaction/initiactive';
+import ScopeChainReactionForm from '@/pages/demoForm/formily/cases/chainReaction/scope';
+import CustomForm from '@/pages/demoForm/formily/cases/Custom/index';
 // import '@formily/antd/dist/antd.css';
 import 'antd/dist/antd.css';
 import './styles.less';
@@ -51,6 +55,26 @@ const options = [
     text: 'ArrayItemsForm',
     component: <ArrayItemsForm className={'formily-demos'} />,
     key: 'ArrayItemsForm',
+  },
+  {
+    text: 'PassiveChainReactionForm',
+    component: <PassiveChainReactionForm className={'formily-demos'} />,
+    key: 'PassiveChainReactionForm',
+  },
+  {
+    text: 'InitiactiveChainReactionForm',
+    component: <InitiactiveChainReactionForm className={'formily-demos'} />,
+    key: 'InitiactiveChainReactionForm',
+  },
+  {
+    text: 'ScopeChainReactionForm',
+    component: <ScopeChainReactionForm className={'formily-demos'} />,
+    key: 'ScopeChainReactionForm',
+  },
+  {
+    text: 'CustomForm',
+    component: <CustomForm className={'custom-formily-demos'} />,
+    key: 'CustomForm',
   },
 ];
 
