@@ -1,11 +1,11 @@
 import React from 'react';
-import { Field } from '@formily/core';
+import { FieldType } from './Context';
 
 // Input UI组件
-export default (inProps: Field) => {
-  const props = inProps as any;
+export default (props: FieldType) => {
   return (
     <input
+      type="number"
       {...props}
       value={props.value || ''}
       style={{
