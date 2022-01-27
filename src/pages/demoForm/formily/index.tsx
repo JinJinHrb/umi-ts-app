@@ -6,6 +6,7 @@ import { Typography } from 'antd';
 import BasicForm from '@/pages/demoForm/formily/cases/basic';
 import DetailsForm from '@/pages/demoForm/formily/cases/details';
 import ValidatesForm from '@/pages/demoForm/formily/cases/validates';
+import VerifyCodeForm from '@/pages/demoForm/formily/cases/VerifyCodeBySchema/index';
 import TraditionalControlledForm from '@/pages/demoForm/formily/cases/traditionalControlledForm';
 import ResponsiveControlledForm from '@/pages/demoForm/formily/cases/responsiveControlledForm';
 import SchemaControlledForm from '@/pages/demoForm/formily/cases/schemaControlledForm';
@@ -35,6 +36,11 @@ const options = [
     text: 'ValidatesForm',
     component: <ValidatesForm className={'formily-demos'} />,
     key: 'ValidatesForm',
+  },
+  {
+    text: 'VerifyCodeForm',
+    component: <VerifyCodeForm className={'formily-demos'} />,
+    key: 'VerifyCodeForm',
   },
   {
     text: 'TraditionalControlledForm',

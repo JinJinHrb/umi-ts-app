@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createForm } from '@formily/core';
 import { createSchemaField } from '@formily/react';
 import { Form, FormItem, Input, Password, Submit } from '@formily/antd';
@@ -22,8 +22,8 @@ const SchemaField = createSchemaField({
     VerifyCode,
   },
   scope: {
-    icon(name) {
-      return React.createElement(ICONS[name]);
+    icon(name: string) {
+      return React.createElement((ICONS as any)[name]);
     },
   },
 });
@@ -97,7 +97,7 @@ const submitHandler = (data: any) => {
   alert(JSON.stringify(data || {}));
 };
 
-export default () => {
+export default (props: any) => {
   return (
     <div
       style={{
@@ -106,6 +106,7 @@ export default () => {
         background: '#eee',
         padding: '40px 0',
       }}
+      {...props}
     >
       <Card style={{ width: 400 }}>
         <Tabs style={{ overflow: 'visible', marginTop: -10 }}>
