@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import TextField from '@mui/material/TextField';
-
 export const StyledLabel = styled.label`
   line-height: 2;
   text-align: left;
@@ -97,14 +95,4 @@ export const StyledCounterSpan = styled.span`
   position: fixed;
   bottom: 60px;
   right: 80px;
-`;
-
-export const StyledLightTextField = styled(TextField)`
-  & input {
-    color: white;
-  }
-  & input::placeholder {
-    color: white;
-    opacity: 0.5;
-  }
 `;

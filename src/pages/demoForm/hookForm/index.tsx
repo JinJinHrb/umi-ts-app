@@ -10,6 +10,8 @@ import CustomValidation from '@/pages/demoForm/hookForm/cases/customValidation';
 import CustomInputUncontrolled from '@/pages/demoForm/hookForm/cases/customInputUncontrolled';
 import { Typography } from 'antd';
 import ErrorBoundary from '@/components/common/ErrorBounary';
+import ControllerForm from '@/pages/demoForm/hookForm/cases/controllerForm';
+import ControllerCheck from '@/pages/demoForm/hookForm/cases/controllerCheck';
 const { Text } = Typography;
 
 const options = [
@@ -42,6 +44,16 @@ const options = [
     text: 'Custom Input uncontrolled',
     component: <CustomInputUncontrolled />,
     key: 'customInputUncontrolled',
+  },
+  {
+    text: 'Controller Form',
+    component: <ControllerForm />,
+    key: 'ControllerForm',
+  },
+  {
+    text: 'controller Check',
+    component: <ControllerCheck />,
+    key: 'controllerCheck',
   },
 ];
 

@@ -4,7 +4,7 @@ import { useForm, Controller } from 'react-hook-form';
 import Select from 'react-select';
 import { Input as StrapInput } from 'reactstrap';
 import { Input } from 'antd';
-import { StyledLabel, StyledH1, StyledSubmitInput, StyledP, StyledLightTextField } from './styled';
+import { StyledLabel, StyledH1, StyledSubmitInput, StyledP } from './styled';
 import { StyledSpace } from './aofaComponents/styled';
 
 const options = [
@@ -40,10 +40,6 @@ export default function App() {
   return (
     <div className="App">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <StyledLightTextField {...register('muiInput')} placeholder="mui/textfield" />
-        </div>
-
         <div>
           <Controller
             name="ant"
