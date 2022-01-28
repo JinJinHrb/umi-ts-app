@@ -8,7 +8,7 @@ import Password from './Password';
 import Label from './Label';
 import FormItem from './FormItem';
 import RequireValidator from './RequireValidator';
-import { umiConsole } from '@/utils/utils';
+import { umiConsole } from '@/utils';
 
 const data = observable({
   name: {

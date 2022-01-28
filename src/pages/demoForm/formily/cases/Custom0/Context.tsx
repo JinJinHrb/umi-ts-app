@@ -1,6 +1,6 @@
 import React, { createContext, ReactElement, useContext, FunctionComponent, ReactNode } from 'react';
 import { observer } from '@formily/reactive-react';
-import { umiConsole } from '@/utils/utils';
+import { umiConsole } from '@/utils';
 
 //创建上下文，方便Field消费
 const FormContext = createContext<FormType>({});

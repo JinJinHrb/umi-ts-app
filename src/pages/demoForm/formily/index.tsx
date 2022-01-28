@@ -3,7 +3,8 @@ import { connect } from 'umi';
 import { QueryTableState, Loading } from '@/models/connect';
 import { StyledDiv, StyledUl, StyledLiOption, StyledSubPage } from './styled';
 import { Typography } from 'antd';
-import BasicForm from '@/pages/demoForm/formily/cases/basic';
+import BasicForm from '@/pages/demoForm/formily/cases/basic1';
+import BasicForm2 from '@/pages/demoForm/formily/cases/basic2';
 import DetailsForm from '@/pages/demoForm/formily/cases/details';
 import ValidatesForm from '@/pages/demoForm/formily/cases/validates';
 import VerifyCodeForm from '@/pages/demoForm/formily/cases/VerifyCodeBySchema/index';
@@ -26,6 +27,11 @@ const options = [
     text: 'BasicForm',
     component: <BasicForm className={'formily-demos'} />,
     key: 'BasicForm',
+  },
+  {
+    text: 'BasicForm2',
+    component: <BasicForm2 className={'basic'} />,
+    key: 'BasicForm2',
   },
   {
     text: 'DetailsForm',

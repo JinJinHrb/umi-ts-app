@@ -23,7 +23,7 @@ import { queryGeoLocationData } from '@/services/geo';
 import { GET_GEO_LOCATION_QUERY_KEY } from '@/utils/constants';
 import { queryClient } from '@/utils/reactQuery';
 import _ from 'lodash';
-import { umiConsole } from '@/utils/utils';
+import { umiConsole } from '@/utils';
 
 const form = createForm({
   validateFirst: true,

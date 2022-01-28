@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Link, connect, useLocation, Loading } from 'umi';
 import { Menu } from 'antd';
 import { GlobalModelState } from '@/models/connect';
-import { queryKeysByPath } from '@/utils/utils';
+import { queryKeysByPath } from '@/utils';
 
 const { SubMenu, Item } = Menu;
 

@@ -1,7 +1,7 @@
 import React, { createContext, ReactElement, useContext, FunctionComponent, ReactNode, Component } from 'react';
 import { observer } from '@formily/reactive-react';
 import { Field, Form, IFieldFactoryProps } from '@formily/core';
-import { umiConsole } from '@/utils/utils';
+import { umiConsole } from '@/utils';
 
 //创建上下文，方便Field消费
 const FormContext = createContext<Form>({} as Form);

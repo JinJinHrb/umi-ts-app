@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { StyledLabel, StyledH1, StyledSubmitInput, StyleInvalidSubmitButton } from './styled';
 import _ from 'lodash';
+import { sleep } from '@/utils';
 
 interface ISubmitData {
   username?: string;
@@ -45,11 +46,6 @@ export default function App() {
   }, [errors, uploading]);
 
   // 处理错误 End
-
-  const sleep = (ms: number) =>
-    new Promise((resolve) => {
-      setTimeout(resolve, ms);
-    });
 
   const onSubmit = async (data: ISubmitData) => {
     if (uploading) {

@@ -14,7 +14,7 @@ import { Input } from 'antd';
 import Card from './Card';
 import { FormItem, FormLayout, NumberPicker, Form, Submit, FormButtonGroup } from '@formily/antd';
 import Items from './Items';
-import { umiConsole } from '@/utils/utils';
+import { umiConsole } from '@/utils';
 
 const form = createForm({
   effects: () => {},

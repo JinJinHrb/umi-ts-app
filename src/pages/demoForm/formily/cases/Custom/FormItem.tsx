@@ -4,7 +4,7 @@ import { IFieldFeedback } from '@formily/core';
 import { FieldContext } from './Context';
 import { useContext } from 'react';
 import _ from 'lodash';
-import { umiConsole } from '@/utils/utils';
+import { umiConsole } from '@/utils';
 
 // FormItem UI组件
 export default observer(({ children }) => {
