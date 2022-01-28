@@ -4,7 +4,9 @@ import { QueryTableState, Loading } from '@/models/connect';
 import { StyledDiv, StyledUl, StyledLiOption, StyledSubPage } from './styled';
 import { Typography } from 'antd';
 import BasicForm from '@/pages/demoForm/formily/cases/basic1';
-import BasicForm2 from '@/pages/demoForm/formily/cases/basic2';
+import BasicForm2_1 from '@/pages/demoForm/formily/cases/basic2_1';
+import BasicForm2_2 from '@/pages/demoForm/formily/cases/basic2_2';
+import BasicForm2_3 from '@/pages/demoForm/formily/cases/basic2_3';
 import DetailsForm from '@/pages/demoForm/formily/cases/details';
 import ValidatesForm from '@/pages/demoForm/formily/cases/validates';
 import VerifyCodeForm from '@/pages/demoForm/formily/cases/VerifyCodeBySchema/index';
@@ -29,9 +31,19 @@ const options = [
     key: 'BasicForm',
   },
   {
-    text: 'BasicForm2',
-    component: <BasicForm2 className={'basic'} />,
-    key: 'BasicForm2',
+    text: 'BasicForm2_1',
+    component: <BasicForm2_1 className={'basic'} />,
+    key: 'BasicForm2_1',
+  },
+  {
+    text: 'BasicForm2_2',
+    component: <BasicForm2_2 />,
+    key: 'BasicForm2_2',
+  },
+  {
+    text: 'BasicForm2_3',
+    component: <BasicForm2_3 />,
+    key: 'BasicForm2_3',
   },
   {
     text: 'DetailsForm',

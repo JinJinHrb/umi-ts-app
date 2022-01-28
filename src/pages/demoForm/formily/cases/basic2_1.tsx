@@ -27,8 +27,13 @@ export default (props: any) => {
     return createForm({
       initialValues: {
         name: 'fish',
+        age: 17,
       },
       effects() {
+        onFieldMount('age', (field) => {
+          umiConsole.log('onFieldMount #34 field : [age] mount!');
+          setArr(`onFieldMount #34 field : [age] mount! age = ${(field as Field).value}\n`);
+        });
         onFieldMount('name', (field) => {
           umiConsole.log('onFieldMount #34 field : [name] mount!');
           setArr(`onFieldMount #34 field : [name] mount!\n`);
@@ -151,6 +156,7 @@ export default (props: any) => {
           umiConsole.log('create Field age');
           //createField的时候就会触发onFieldChange，包括value与component
           let ageField = form.createField({ name: 'age' });
+          ageField.onMount();
 
           umiConsole.log('create Field name');
           //createField的时候就会触发onFieldChange，包括value与component
@@ -190,6 +196,8 @@ export default (props: any) => {
             form.setFieldState('name', (state) => {
               state.value = '12345678';
             });
+
+            ageField.onMount();
           };
           await setHasCrateFieldOfValue();
         }}
