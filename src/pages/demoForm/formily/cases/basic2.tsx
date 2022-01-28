@@ -31,7 +31,7 @@ export default (props: any) => {
       effects() {
         onFieldMount('name', (field) => {
           umiConsole.log('onFieldMount #34 field : [name] mount!');
-          setArr('onFieldMount #34 field : [name] mount!');
+          setArr(`onFieldMount #34 field : [name] mount!\n`);
         });
         onFieldChange('name', (field, form) => {
           //当Field是VoidField的时候，没有value
@@ -160,7 +160,7 @@ export default (props: any) => {
           umiConsole.log('mount');
           field.onMount();
 
-          let setHasCrateFieldOfValue = async () => {
+          const setHasCrateFieldOfValue = async () => {
             //手动更改field的value的方法
             umiConsole.log('change value');
             field.value = '123';
