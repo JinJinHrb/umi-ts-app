@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 import { sleep, umiConsole } from '@/utils';
 
 /**
- * 未赋值时，设置初始值
+ * 用户输入后再设置初始值
  */
 export default (props: any) => {
   const form = useMemo(() => {
@@ -14,25 +14,37 @@ export default (props: any) => {
         onFieldChange('name', (field, form) => {
           //当Field是VoidField的时候，没有value
           let field2 = field as Field;
-          umiConsole.log('field : [name] value = ', field2.value);
+          umiConsole.log('onFieldChange #17 field : [name] value = ', field2.value);
         });
       },
     });
   }, []);
 
+  const blanks = useMemo(() => {
+    const arr = [];
+    for (let i = 0; i < 4; i++) {
+      arr.push(<span key={`blk_${i}`}>&nbsp;</span>);
+    }
+    return <>{arr}</>;
+  }, []);
+
   return (
     <div {...props}>
-      <p>未赋值时，设置初始值</p>
+      <p>用户输入后再设置初始值（会失败）</p>
       <button
         onClick={async () => {
           umiConsole.log('create Field');
           //初始化的时候，值为undefined
           let field = form.createField({ name: 'name' });
 
-          //数据未赋值过的情况下，设置initialValue，会自动赋值到value
+          //使用onInput，来模拟用户输入
+          await sleep(1000);
+          field.onInput('1');
+
+          //onInput以后，使用form来设置initialValues是会失败的，无法覆盖进去
           await sleep(1000);
           form.setInitialValues({
-            name: '213',
+            name: '2',
           });
         }}
       >

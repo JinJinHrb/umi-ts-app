@@ -7,6 +7,11 @@ import BasicForm from '@/pages/demoForm/formily/cases/basic1';
 import BasicForm2_1 from '@/pages/demoForm/formily/cases/basic2_1';
 import BasicForm2_2 from '@/pages/demoForm/formily/cases/basic2_2';
 import BasicForm2_3 from '@/pages/demoForm/formily/cases/basic2_3';
+import BasicForm2_4 from '@/pages/demoForm/formily/cases/basic2_4';
+import BasicForm2_5 from '@/pages/demoForm/formily/cases/basic2_5';
+import BasicForm2_6 from '@/pages/demoForm/formily/cases/basic2_6';
+import BasicForm2_7 from '@/pages/demoForm/formily/cases/basic2_7';
+import BasicForm2_8 from '@/pages/demoForm/formily/cases/basic2_8';
 import DetailsForm from '@/pages/demoForm/formily/cases/details';
 import ValidatesForm from '@/pages/demoForm/formily/cases/validates';
 import VerifyCodeForm from '@/pages/demoForm/formily/cases/VerifyCodeBySchema/index';
@@ -37,13 +42,38 @@ const options = [
   },
   {
     text: 'BasicForm2_2',
-    component: <BasicForm2_2 />,
+    component: <BasicForm2_2 className={'basic'} />,
     key: 'BasicForm2_2',
   },
   {
     text: 'BasicForm2_3',
-    component: <BasicForm2_3 />,
+    component: <BasicForm2_3 className={'basic'} />,
     key: 'BasicForm2_3',
+  },
+  {
+    text: 'BasicForm2_4',
+    component: <BasicForm2_4 className={'basic'} />,
+    key: 'BasicForm2_4',
+  },
+  {
+    text: 'BasicForm2_5',
+    component: <BasicForm2_5 className={'basic'} />,
+    key: 'BasicForm2_5',
+  },
+  {
+    text: 'BasicForm2_6',
+    component: <BasicForm2_6 className={'basic'} />,
+    key: 'BasicForm2_6',
+  },
+  {
+    text: 'BasicForm2_7',
+    component: <BasicForm2_7 className={'basic'} />,
+    key: 'BasicForm2_7',
+  },
+  {
+    text: 'BasicForm2_8',
+    component: <BasicForm2_8 className={'basic'} />,
+    key: 'BasicForm2_8',
   },
   {
     text: 'DetailsForm',

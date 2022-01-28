@@ -7,7 +7,7 @@ import { sleep, umiConsole } from '@/utils';
 /**
  * 已赋值时，设置初始值
  */
-export default () => {
+export default (props: any) => {
   const form = useMemo(() => {
     return createForm({
       effects() {
@@ -21,7 +21,8 @@ export default () => {
   }, []);
 
   return (
-    <div>
+    <div {...props}>
+      <p>已赋值后再设置初始值</p>
       <button
         onClick={async () => {
           await sleep(1000);
@@ -29,6 +30,7 @@ export default () => {
           umiConsole.log('create Field');
           //初始化的时候，值为undefined
           let field = form.createField({ name: 'name' });
+          field.onMount();
 
           //设置了一次value
           await sleep(1000);
