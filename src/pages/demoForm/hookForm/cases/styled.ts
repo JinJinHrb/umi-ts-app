@@ -17,6 +17,10 @@ export const StyledH1 = styled.h1`
   border-bottom: 1px solid rgb(79, 98, 148);
 `;
 
+export const StyledH2 = styled.h2`
+  color: white;
+`;
+
 export const StyledP = styled.p`
   color: white;
   margin-bottom: 40px;

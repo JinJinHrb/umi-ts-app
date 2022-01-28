@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useController, useForm, Control } from 'react-hook-form';
 import Headers from './hfComponents/Header';
+import { StyledP, StyledH2 } from '@/pages/demoForm/hookForm/cases/styled';
 
 let renderCount = 0;
 
@@ -64,24 +65,24 @@ export default function App() {
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <section>
-          <h2>uncontrolled</h2>
+          <StyledH2>uncontrolled</StyledH2>
           <input {...register('uncontrolled')} type="checkbox" value="A" />
           <input {...register('uncontrolled')} type="checkbox" value="B" />
           <input {...register('uncontrolled')} type="checkbox" value="C" />
         </section>
 
         <section>
-          <h2>controlled</h2>
+          <StyledH2>controlled</StyledH2>
           <Checkboxes options={['a', 'b', 'c']} control={control} name="controlled" />
         </section>
         <input type="submit" />
       </form>
       {submitted && (
-        <div>
+        <StyledP>
           Submitted Data:
           <br />
           {JSON.stringify(submitted)}
-        </div>
+        </StyledP>
       )}
     </div>
   );
