@@ -20,9 +20,13 @@ import ResponsiveControlledForm from '@/pages/demoForm/formily/cases/responsiveC
 import SchemaControlledForm from '@/pages/demoForm/formily/cases/schemaControlledForm';
 import ArrayItemsForm from '@/pages/demoForm/formily/cases/ArrayItems/json';
 import PassiveChainReactionForm from '@/pages/demoForm/formily/cases/chainReaction/passive';
+import PassiveChainReactionForm2 from '@/pages/demoForm/formily/cases/chainReaction/passive2';
 import InitiactiveChainReactionForm from '@/pages/demoForm/formily/cases/chainReaction/initiactive';
+import InitiactiveChainReactionForm2 from '@/pages/demoForm/formily/cases/chainReaction/initiactive2';
 import ScopeChainReactionForm from '@/pages/demoForm/formily/cases/chainReaction/scope';
 import CustomForm from '@/pages/demoForm/formily/cases/Custom/index';
+import InteractiveModeForm from '@/pages/demoForm/formily/cases/interactiveMode';
+import FieldLifeCycleForm from '@/pages/demoForm/formily/cases/fieldLifeCycleForm';
 // import '@formily/antd/dist/antd.css';
 import 'antd/dist/antd.css';
 import './styles.less';
@@ -111,14 +115,24 @@ const options = [
     key: 'ArrayItemsForm',
   },
   {
+    text: 'InitiactiveChainReactionForm',
+    component: <InitiactiveChainReactionForm className={'formily-demos'} />,
+    key: 'InitiactiveChainReactionForm',
+  },
+  {
+    text: 'InitiactiveChainReactionForm2',
+    component: <InitiactiveChainReactionForm2 />,
+    key: 'InitiactiveChainReactionForm2',
+  },
+  {
     text: 'PassiveChainReactionForm',
     component: <PassiveChainReactionForm className={'formily-demos'} />,
     key: 'PassiveChainReactionForm',
   },
   {
-    text: 'InitiactiveChainReactionForm',
-    component: <InitiactiveChainReactionForm className={'formily-demos'} />,
-    key: 'InitiactiveChainReactionForm',
+    text: 'PassiveChainReactionForm2',
+    component: <PassiveChainReactionForm2 />,
+    key: 'PassiveChainReactionForm2',
   },
   {
     text: 'ScopeChainReactionForm',
@@ -129,6 +143,16 @@ const options = [
     text: 'CustomForm',
     component: <CustomForm className={'custom-formily-demos'} />,
     key: 'CustomForm',
+  },
+  {
+    text: 'InteractiveModeForm',
+    component: <InteractiveModeForm className={'custom-formily-demos'} />,
+    key: 'InteractiveModeForm',
+  },
+  {
+    text: 'FieldLifeCycleForm',
+    component: <FieldLifeCycleForm className={'custom-formily-demos'} />,
+    key: 'FieldLifeCycleForm',
   },
 ];
 
