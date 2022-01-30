@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react';
-import { connect } from 'umi';
-import { QueryTableState, Loading } from '@/models/connect';
+import React, { useEffect, useRef, useState } from 'react';
+import { connect, Dispatch, history } from 'umi';
+import { ISelectedIndexState, Loading } from '@/models/connect';
 import { StyledDiv, StyledUl, StyledLiOption, StyledSubPage } from './styled';
 import { Typography } from 'antd';
 import BasicForm from '@/pages/demoForm/formily/cases/basic1';
@@ -30,6 +30,7 @@ import FieldLifeCycleForm from '@/pages/demoForm/formily/cases/fieldLifeCycleFor
 // import '@formily/antd/dist/antd.css';
 import 'antd/dist/antd.css';
 import './styles.less';
+// import { umiConsole } from '@/utils';
 
 const { Text } = Typography;
 
@@ -78,6 +79,11 @@ const options = [
     text: 'BasicForm2_8',
     component: <BasicForm2_8 className={'basic'} />,
     key: 'BasicForm2_8',
+  },
+  {
+    text: 'CustomForm',
+    component: <CustomForm className={'custom-formily-demos'} />,
+    key: 'CustomForm',
   },
   {
     text: 'DetailsForm',
@@ -140,11 +146,6 @@ const options = [
     key: 'ScopeChainReactionForm',
   },
   {
-    text: 'CustomForm',
-    component: <CustomForm className={'custom-formily-demos'} />,
-    key: 'CustomForm',
-  },
-  {
     text: 'InteractiveModeForm',
     component: <InteractiveModeForm className={'custom-formily-demos'} />,
     key: 'InteractiveModeForm',
@@ -156,20 +157,41 @@ const options = [
   },
 ];
 
-interface IRefs {
-  ul: any;
+interface IFormilyDemo {
+  dispatch: Dispatch;
+  formilyDemo: ISelectedIndexState;
+  loading: Loading;
 }
 
-const HookForms = (
-  {
-    /* dispatch, queryTable, loading  */
-  },
-) => {
-  const [liSelected, selectLi0] = useState(0);
+const FormilyDemo = ({ dispatch, formilyDemo, loading }: any) => {
+  //   const [liSelected, selectLi0] = useState(index);
+  //   umiConsole.log('FormilyDemo #192 formilyDemo:', formilyDemo, 'loading:', loading);
+  const { index: liSelected } = formilyDemo || { index: 0 };
+
+  useEffect(() => {
+    dispatch({
+      type: 'formilyDemo/querySelectedIndex',
+      payload: {
+        pathname: history.location.pathname,
+        defaultIndex: 0,
+      },
+    });
+  }, []);
 
   const selectLi = (index: number) => {
-    if (index > -1) selectLi0(index);
+    if (index > -1) {
+      // selectLi0(index);
+      //   umiConsole.log('selectLi #183 index:', index);
+      dispatch({
+        type: 'formilyDemo/setSelectedIndex',
+        payload: {
+          pathname: history.location.pathname,
+          index,
+        },
+      });
+    }
   };
+
   const optionLis = options.map((el, index) => {
     return (
       <StyledLiOption key={el.key} onClick={selectLi.bind(this, index)}>
@@ -186,7 +208,8 @@ const HookForms = (
   );
 };
 
-export default connect(({ queryTable, loading }: { queryTable: QueryTableState; loading: Loading }) => ({
-  queryTable,
-  loading: loading.models.queryTable,
-}))(HookForms);
+export default connect(({ dispatch, formilyDemo, loading }: IFormilyDemo) => ({
+  dispatch,
+  formilyDemo,
+  loading: loading.effects['formilyDemo/querySelectedIndex'],
+}))(FormilyDemo);

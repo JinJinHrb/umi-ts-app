@@ -8,7 +8,7 @@ export default (props: FieldType) => {
       {...props}
       style={{
         width: '100%',
-        height: 28,
+        height: 15,
         padding: '0 5px',
       }}
     >

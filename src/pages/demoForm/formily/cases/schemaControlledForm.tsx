@@ -52,7 +52,10 @@ export default (props: any) => {
                       label: '111',
                       value: '111',
                     },
-                    { label: '222', value: '222' },
+                    {
+                      label: '222',
+                      value: '222',
+                    },
                   ],
                   'x-component': 'Select',
                   'x-component-props': {

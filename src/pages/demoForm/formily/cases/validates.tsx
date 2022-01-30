@@ -288,6 +288,20 @@ const schema = {
       'x-decorator': 'FormItem',
       'x-component': 'NumberPicker',
     },
+    multipleOf3: {
+      name: 'multipleOf',
+      title: '整除匹配',
+      type: 'string',
+      'x-validator': [
+        {
+          multipleOf: 3,
+          required: true,
+          triggerType: 'onBlur',
+        },
+      ],
+      'x-decorator': 'FormItem',
+      'x-component': 'NumberPicker',
+    },
   },
 };
 

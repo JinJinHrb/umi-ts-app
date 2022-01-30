@@ -2,8 +2,9 @@ import { GlobalModelState } from './global';
 import { LoginModelState } from './login';
 import { QueryTableState } from './queryTable';
 import { DashboardState } from './dashboard';
+import { ISelectedIndexState } from './formilyDemo';
 
-export { GlobalModelState, LoginModelState, QueryTableState, DashboardState };
+export { GlobalModelState, LoginModelState, QueryTableState, DashboardState, ISelectedIndexState };
 
 export interface Loading {
   global: boolean;

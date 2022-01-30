@@ -59,7 +59,9 @@ const QueryTableModel: QueryTableType = {
     // },
     // 启用 immer 之后
     save(state, action) {
-      state.name = action.payload;
+      Object.entries(action.payload).forEach(([k, v]) => {
+        (state as any)[k] = v;
+      });
     },
   },
 };
