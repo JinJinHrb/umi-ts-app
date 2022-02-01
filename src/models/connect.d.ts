@@ -2,9 +2,16 @@ import { GlobalModelState } from './global';
 import { LoginModelState } from './login';
 import { QueryTableState } from './queryTable';
 import { DashboardState } from './dashboard';
-import { ISelectedIndexState } from './formilyDemo';
+import { ISelectedIndexState } from './formDemo';
+import { Dispatch } from 'umi';
 
 export { GlobalModelState, LoginModelState, QueryTableState, DashboardState, ISelectedIndexState };
+
+export interface IFormDemo {
+  dispatch: Dispatch;
+  formDemo: ISelectedIndexState;
+  loading: Loading;
+}
 
 export interface Loading {
   global: boolean;

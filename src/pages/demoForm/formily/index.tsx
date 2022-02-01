@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { connect, Dispatch, history } from 'umi';
-import { ISelectedIndexState, Loading } from '@/models/connect';
+import React, { useEffect } from 'react';
+import { connect, history } from 'umi';
+import { IFormDemo } from '@/models/connect';
 import { StyledDiv, StyledUl, StyledLiOption, StyledSubPage } from './styled';
 import { Typography } from 'antd';
 import BasicForm from '@/pages/demoForm/formily/cases/basic1';
@@ -13,6 +13,7 @@ import BasicForm2_6 from '@/pages/demoForm/formily/cases/basic2_6';
 import BasicForm2_7 from '@/pages/demoForm/formily/cases/basic2_7';
 import BasicForm2_8 from '@/pages/demoForm/formily/cases/basic2_8';
 import DetailsForm from '@/pages/demoForm/formily/cases/details';
+import XtForm from '@/pages/demoForm/formily/cases/xt';
 import ValidatesForm from '@/pages/demoForm/formily/cases/validates';
 import VerifyCodeForm from '@/pages/demoForm/formily/cases/VerifyCodeBySchema/index';
 import TraditionalControlledForm from '@/pages/demoForm/formily/cases/traditionalControlledForm';
@@ -27,10 +28,11 @@ import ScopeChainReactionForm from '@/pages/demoForm/formily/cases/chainReaction
 import CustomForm from '@/pages/demoForm/formily/cases/Custom/index';
 import InteractiveModeForm from '@/pages/demoForm/formily/cases/interactiveMode';
 import FieldLifeCycleForm from '@/pages/demoForm/formily/cases/fieldLifeCycleForm';
+import SiblingPathsForm from '@/pages/demoForm/formily/cases/chainReaction/siblingPaths';
 // import '@formily/antd/dist/antd.css';
 import 'antd/dist/antd.css';
 import './styles.less';
-// import { umiConsole } from '@/utils';
+import { umiConsole } from '@/utils';
 
 const { Text } = Typography;
 
@@ -146,6 +148,11 @@ const options = [
     key: 'ScopeChainReactionForm',
   },
   {
+    text: 'SiblingPathsForm',
+    component: <SiblingPathsForm className={'formily-demos'} />,
+    key: 'SiblingPathsForm',
+  },
+  {
     text: 'InteractiveModeForm',
     component: <InteractiveModeForm className={'custom-formily-demos'} />,
     key: 'InteractiveModeForm',
@@ -155,22 +162,21 @@ const options = [
     component: <FieldLifeCycleForm className={'custom-formily-demos'} />,
     key: 'FieldLifeCycleForm',
   },
+  {
+    text: 'XtForm',
+    component: <XtForm />,
+    key: 'XtForm',
+  },
 ];
 
-interface IFormilyDemo {
-  dispatch: Dispatch;
-  formilyDemo: ISelectedIndexState;
-  loading: Loading;
-}
-
-const FormilyDemo = ({ dispatch, formilyDemo, loading }: any) => {
+const FormilyDemo = ({ dispatch, formDemo, loading }: any) => {
   //   const [liSelected, selectLi0] = useState(index);
-  //   umiConsole.log('FormilyDemo #192 formilyDemo:', formilyDemo, 'loading:', loading);
-  const { index: liSelected } = formilyDemo || { index: 0 };
+  umiConsole.log('FormilyDemo #192 formDemo:', formDemo, 'loading:', loading);
+  const { index: liSelected } = formDemo || { index: 0 };
 
   useEffect(() => {
     dispatch({
-      type: 'formilyDemo/querySelectedIndex',
+      type: 'formDemo/querySelectedIndex',
       payload: {
         pathname: history.location.pathname,
         defaultIndex: 0,
@@ -183,7 +189,7 @@ const FormilyDemo = ({ dispatch, formilyDemo, loading }: any) => {
       // selectLi0(index);
       //   umiConsole.log('selectLi #183 index:', index);
       dispatch({
-        type: 'formilyDemo/setSelectedIndex',
+        type: 'formDemo/setSelectedIndex',
         payload: {
           pathname: history.location.pathname,
           index,
@@ -208,8 +214,8 @@ const FormilyDemo = ({ dispatch, formilyDemo, loading }: any) => {
   );
 };
 
-export default connect(({ dispatch, formilyDemo, loading }: IFormilyDemo) => ({
+export default connect(({ dispatch, formDemo, loading }: IFormDemo) => ({
   dispatch,
-  formilyDemo,
-  loading: loading.effects['formilyDemo/querySelectedIndex'],
+  formDemo,
+  loading: loading.effects['formDemo/querySelectedIndex'],
 }))(FormilyDemo);

@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react';
-import { connect } from 'umi';
-import { QueryTableState, Loading } from '@/models/connect';
+import React, { useEffect, useState } from 'react';
+import { connect, history } from 'umi';
+import { IFormDemo } from '@/models/connect';
 import { StyledDiv, StyledUl, StyledLiOption, StyledSubPage } from './styled';
 import AsyncSetValueForm from '@/pages/demoForm/hookForm/cases/asyncSetValue';
 import AsyncSubmitValidationForm from '@/pages/demoForm/hookForm/cases/asyncSubmitValidation';
@@ -12,6 +12,8 @@ import { Typography } from 'antd';
 import ErrorBoundary from '@/components/common/ErrorBounary';
 import ControllerForm from '@/pages/demoForm/hookForm/cases/controllerForm';
 import ControllerCheck from '@/pages/demoForm/hookForm/cases/controllerCheck';
+import { umiConsole } from '@/utils';
+
 const { Text } = Typography;
 
 const options = [
@@ -57,16 +59,34 @@ const options = [
   },
 ];
 
-const HookForms = (
-  {
-    /* dispatch, queryTable, loading  */
-  },
-) => {
-  const [liSelected, selectLi0] = useState(0);
+const HookForms = ({ dispatch, formDemo, loading }: any) => {
+  //   const [liSelected, selectLi0] = useState(0);
+  umiConsole.log('HookForms #64 formDemo:', formDemo, 'loading:', loading);
+  const { index: liSelected } = formDemo || { index: 0 };
+
+  useEffect(() => {
+    dispatch({
+      type: 'formDemo/querySelectedIndex',
+      payload: {
+        pathname: history.location.pathname,
+        defaultIndex: 0,
+      },
+    });
+  }, []);
 
   const selectLi = (index: number) => {
-    if (index > -1) selectLi0(index);
+    if (index > -1) {
+      // selectLi0(index);
+      dispatch({
+        type: 'formDemo/setSelectedIndex',
+        payload: {
+          pathname: history.location.pathname,
+          index,
+        },
+      });
+    }
   };
+
   const optionLis = options.map((el, index) => {
     return (
       <StyledLiOption key={el.key} onClick={selectLi.bind(this, index)}>
@@ -85,7 +105,8 @@ const HookForms = (
   );
 };
 
-export default connect(({ queryTable, loading }: { queryTable: QueryTableState; loading: Loading }) => ({
-  queryTable,
-  loading: loading.models.queryTable,
+export default connect(({ dispatch, formDemo, loading }: IFormDemo) => ({
+  dispatch,
+  formDemo,
+  loading: loading.effects['formDemo/querySelectedIndex'],
 }))(HookForms);

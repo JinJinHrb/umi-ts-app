@@ -1,7 +1,7 @@
-import { Effect, Reducer, ImmerReducer, history } from 'umi';
-import { querySelectedIndex, setSelectedIndex } from '@/services/formilyDemo';
+import { Effect, Reducer, ImmerReducer } from 'umi';
+import { querySelectedIndex, setSelectedIndex } from '@/services/formDemo';
 // import { umiConsole } from '@/utils';
-const FORMILY_DEMO = 'formilyDemo';
+const FORM_DEMO = 'formDemo';
 
 export interface ISelectedIndexState {
   pathname: string;
@@ -9,7 +9,7 @@ export interface ISelectedIndexState {
 }
 
 export interface ISelectedIndexModel {
-  namespace: typeof FORMILY_DEMO;
+  namespace: typeof FORM_DEMO;
   state: ISelectedIndexState;
   effects: {
     querySelectedIndex: Effect;
@@ -23,7 +23,7 @@ export interface ISelectedIndexModel {
 }
 
 const SelectedIndexModel: ISelectedIndexModel = {
-  namespace: FORMILY_DEMO,
+  namespace: FORM_DEMO,
   state: {
     pathname: '/',
     index: 0,
