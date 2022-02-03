@@ -122,46 +122,6 @@ const SchemaField = createSchemaField({
 const schema = {
   type: 'object',
   properties: {
-    socialAccount: {
-      type: 'string',
-      title: '社交账号',
-      required: true,
-      'x-decorator': 'FormItem',
-      'x-component': 'XtSelectInput',
-      /* 'x-component-props': {
-        upperTitle: '社交账号',
-      }, */
-      enum: [
-        {
-          label: 'Facebook',
-          value: 'Facebook',
-        },
-        {
-          label: 'Twitter',
-          value: 'Twitter',
-        },
-        {
-          label: 'QQ',
-          value: 'QQ',
-        },
-        {
-          label: 'Wechat',
-          value: 'Wechat',
-        },
-        {
-          label: 'Linkedin',
-          value: 'Linkedin',
-        },
-        {
-          label: 'Line',
-          value: 'Line',
-        },
-        {
-          label: 'WhatsApp',
-          value: 'WhatsApp',
-        },
-      ],
-    },
     username: {
       type: 'string',
       title: '用户名',
@@ -198,6 +158,85 @@ const schema = {
           },
         },
       },
+    },
+
+    socialAccount: {
+      type: 'object',
+      title: '社交账号',
+      required: true,
+      'x-decorator': 'FormItem',
+      'x-component': 'XtSelectInput',
+      /* 'x-component-props': {
+          upperTitle: '社交账号',
+        }, */
+      enum: [
+        {
+          label: 'Facebook',
+          value: 'Facebook',
+        },
+        {
+          label: 'Twitter',
+          value: 'Twitter',
+        },
+        {
+          label: 'QQ',
+          value: 'QQ',
+        },
+        {
+          label: 'Wechat',
+          value: 'Wechat',
+        },
+        {
+          label: 'Linkedin',
+          value: 'Linkedin',
+        },
+        {
+          label: 'Line',
+          value: 'Line',
+        },
+        {
+          label: 'WhatsApp',
+          value: 'WhatsApp',
+        },
+      ],
+    },
+    payAmount: {
+      type: 'object',
+      title: '币种',
+      required: true,
+      'x-decorator': 'FormItem',
+      'x-component': 'XtSelectInput',
+      'x-component-props': {
+        // upperTitle: '币种',
+        inputType: 'number',
+      },
+      /*
+        人民币（CNY）￥
+        欧元（EUR）€
+        英镑（GBP）￡
+        澳元（AUD）A$
+        日元（JPY）¥
+        加元（CAD）C$
+        新西兰元（NZD）NZ$
+        澳门币（MOP）MOP$
+        香港港元（HKD）HK$
+        韩元（KRW）₩
+        俄罗斯卢布（RUB）₽
+        */
+      enum: [
+        { value: 'CNY', label: '人民币（CNY）' },
+        { value: 'USD', label: '美元（USD）' },
+        { value: 'EUR', label: '欧元（EUR）' },
+        { value: 'GBP', label: '英镑（GBP）' },
+        { value: 'AUD', label: '澳元（AUD）' },
+        { value: 'JPY', label: '日元（JPY）' },
+        { value: 'CAD', label: '加元（CAD）' },
+        { value: 'NZD', label: '新西兰元（NZD）' },
+        { value: 'MOP', label: '澳门币（MOP）' },
+        { value: 'HKD', label: '香港港元（HKD）' },
+        { value: 'KRW', label: '韩元（KRW）' },
+        { value: 'RUB', label: '俄罗斯卢布（RUB）' },
+      ],
     },
     email: {
       type: 'string',
@@ -349,7 +388,6 @@ export default () => {
         email: 'aston_martin@aston.com',
         gender: 1,
         birthday: '1997-01-03',
-        // address: '310000', '310000', '310110',
         address: ['310000', '310000', '310110'],
         idCard: [
           {
@@ -370,7 +408,7 @@ export default () => {
           { name: '张三', phone: '13245633378', email: 'zhangsan@gmail.com' },
           { name: '李四', phone: '16873452678', email: 'lisi@gmail.com' },
         ],
-        socialAccount: { account: 'xt_official', media: 'Twitter' },
+        socialAccount: { selected: 'Twitter', entered: 'xt_official' },
       });
       setLoading(false);
     }, 2000);

@@ -7,21 +7,23 @@ import { umiConsole } from '@/utils';
 
 interface IProps {
   value: {
-    media: string;
-    account: string;
+    selected: string;
+    entered: string;
   };
   suffixIcon?: string;
   onChange: (data: any) => void;
   options: LabeledValue | LabeledValue[];
-  loading: boolean;
-  title: string;
-  upperTitle: string;
+  loading?: boolean;
+  title?: string;
+  upperTitle?: string;
+  inputType?: string;
+  required?: boolean;
 }
 
 interface IState {
   value: {
-    media: string;
-    account: string;
+    selected: string;
+    entered: string;
   };
   options: LabeledValue[];
 }
@@ -29,8 +31,8 @@ interface IState {
 interface IMyComponent {
   onChange: (data: any) => void;
   value: {
-    media: string;
-    account: string;
+    selected: string;
+    entered: string;
   };
 }
 
@@ -39,23 +41,28 @@ class MyComponent<IMyComponent> extends React.PureComponent<IProps, IState> {
     super(props);
     this.state = {
       value: {
-        media: '',
-        account: '',
+        selected: '',
+        entered: '',
       },
       options: [],
     };
   }
 
   onChange(newData: IState) {
-    // umiConsole.log('onChange #49 newData?.value:', newData?.value);
-    this.props?.onChange(newData?.value);
+    const value = newData?.value;
+    // umiConsole.log('onChange #53 value:', value);
+    if (value?.selected && value?.entered) {
+      this.props?.onChange(value);
+    } else {
+      this.props?.onChange(undefined);
+    }
   }
 
   onAntdSelectChange(value: string, option: LabeledValue | LabeledValue[]) {
     // umiConsole.log('onAntdSelectChange #53 value:', value, 'option:', option);
     const newState = { ...this.state };
     newState.value = { ...this.state.value };
-    newState.value.media = value;
+    newState.value.selected = value;
     this.setState(newState, () => this.onChange(newState));
   }
 
@@ -64,7 +71,7 @@ class MyComponent<IMyComponent> extends React.PureComponent<IProps, IState> {
     // umiConsole.log('onAntdInputChange #61 value:', value);
     const newState = { ...this.state };
     newState.value = { ...this.state.value };
-    newState.value.account = value;
+    newState.value.entered = value;
     this.setState(newState, () => this.onChange(newState));
   }
 
@@ -75,10 +82,15 @@ class MyComponent<IMyComponent> extends React.PureComponent<IProps, IState> {
     if (!_.isEqual(polyfillOptions, prevState.options)) {
       nextState.options = polyfillOptions;
     }
-    const propsValue = nextProps.value;
-    const stateValue = prevState.value;
-    if (propsValue && !_.isEqual(propsValue, stateValue)) {
-      nextState.value = propsValue;
+    const nextStateValue = {};
+    const propsValue = nextProps.value || {};
+    const stateValue = prevState.value || {};
+    Object.keys(stateValue).forEach((k) => {
+      const val = (stateValue as any)?.[k] || (propsValue as any)?.[k];
+      (nextStateValue as any)[k] = val;
+    });
+    if (!_.isEmpty(nextStateValue)) {
+      nextState.value = nextStateValue;
     }
     if (_.isEmpty(nextState)) {
       return null;
@@ -96,6 +108,8 @@ class MyComponent<IMyComponent> extends React.PureComponent<IProps, IState> {
       loading,
       title,
       upperTitle,
+      inputType,
+      required,
       ...props
     } = this.props;
     const { options, value } = this.state;
@@ -118,11 +132,11 @@ class MyComponent<IMyComponent> extends React.PureComponent<IProps, IState> {
               suffixIcon={suffixIcon}
               onChange={this.onAntdSelectChange.bind(this)}
               options={options}
-              value={value.media}
+              value={value.selected}
             />
           </div>
           <div className={styles.inputClass}>
-            <AntdInput onChange={this.onAntdInputChange.bind(this)} value={value.account} />
+            <AntdInput onChange={this.onAntdInputChange.bind(this)} value={value.entered} type={inputType} />
           </div>
         </div>
       </div>
