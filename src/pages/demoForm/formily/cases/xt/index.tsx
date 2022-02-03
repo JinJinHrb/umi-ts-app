@@ -25,6 +25,7 @@ import { queryClient } from '@/utils/reactQuery';
 import _ from 'lodash';
 import { umiConsole } from '@/utils';
 import XtSelectInput from '@/components/xt/selectInput';
+import cls from 'classnames';
 
 const form = createForm({
   validateFirst: true,
@@ -127,6 +128,39 @@ const schema = {
       required: true,
       'x-decorator': 'FormItem',
       'x-component': 'XtSelectInput',
+      /* 'x-component-props': {
+        upperTitle: '社交账号',
+      }, */
+      enum: [
+        {
+          label: 'Facebook',
+          value: 'Facebook',
+        },
+        {
+          label: 'Twitter',
+          value: 'Twitter',
+        },
+        {
+          label: 'QQ',
+          value: 'QQ',
+        },
+        {
+          label: 'Wechat',
+          value: 'Wechat',
+        },
+        {
+          label: 'Linkedin',
+          value: 'Linkedin',
+        },
+        {
+          label: 'Line',
+          value: 'Line',
+        },
+        {
+          label: 'WhatsApp',
+          value: 'WhatsApp',
+        },
+      ],
     },
     username: {
       type: 'string',
@@ -336,6 +370,7 @@ export default () => {
           { name: '张三', phone: '13245633378', email: 'zhangsan@gmail.com' },
           { name: '李四', phone: '16873452678', email: 'lisi@gmail.com' },
         ],
+        socialAccount: { account: 'xt_official', media: 'Twitter' },
       });
       setLoading(false);
     }, 2000);

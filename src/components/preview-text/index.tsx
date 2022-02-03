@@ -10,7 +10,7 @@ import { DatePickerProps, RangePickerProps as DateRangePickerProps } from 'antd/
 import { TimePickerProps, TimeRangePickerProps } from 'antd/lib/time-picker';
 import { Tag, Space } from 'antd';
 import cls from 'classnames';
-import { formatMomentValue, usePrefixCls } from '../__builtins__';
+import { formatMomentValue, usePrefixCls } from '@/utils/__builtins__';
 
 const PlaceholderContext = createContext<React.ReactNode>('N/A');
 
@@ -109,7 +109,16 @@ const Select: React.FC<SelectProps<any>> = observer((props) => {
   );
 });
 
-const TreeSelect: React.FC<TreeSelectProps<any>> = observer((props) => {
+interface ITreeSelectProps {
+  options?: any[];
+  value?: any;
+  multiple?: any;
+  labelInValue?: any;
+  prefixCls?: any;
+  className?: any;
+  style?: any;
+}
+const TreeSelect: React.FC<TreeSelectProps<any>> = observer((props: ITreeSelectProps) => {
   const field = useField<Field>();
   const placeholder = usePlaceholder();
   const prefixCls = usePrefixCls('form-text', props);
@@ -131,7 +140,7 @@ const TreeSelect: React.FC<TreeSelectProps<any>> = observer((props) => {
     }
   };
 
-  const findLabel = (value: any, dataSource: any[]) => {
+  const findLabel = (value: any, dataSource: any[]): any => {
     for (let i = 0; i < dataSource?.length; i++) {
       const item = dataSource[i];
       if (item?.value === value) {
@@ -157,7 +166,7 @@ const TreeSelect: React.FC<TreeSelectProps<any>> = observer((props) => {
   );
 });
 
-const Cascader: React.FC<CascaderProps> = observer((props) => {
+const Cascader: React.FC<CascaderProps<any>> = observer((props) => {
   const field = useField<Field>();
   const placeholder = usePlaceholder();
   const prefixCls = usePrefixCls('form-text', props);
@@ -168,8 +177,8 @@ const Cascader: React.FC<CascaderProps> = observer((props) => {
   const getLabels = () => {
     const selected = getSelected();
     const labels = getValueByValue(dataSource, selected)
-      ?.filter((item) => isValid(item))
-      ?.map((item) => item?.whole.join('/'))
+      ?.filter((item: any) => isValid(item))
+      ?.map((item: { whole: string[] }) => item?.whole.join('/'))
       .join(', ');
     return labels || placeholder;
   };

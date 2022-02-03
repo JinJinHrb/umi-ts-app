@@ -171,7 +171,7 @@ const options = [
 
 const FormilyDemo = ({ dispatch, formDemo, loading }: any) => {
   //   const [liSelected, selectLi0] = useState(index);
-  umiConsole.log('FormilyDemo #192 formDemo:', formDemo, 'loading:', loading);
+  //   umiConsole.log('FormilyDemo #172 formDemo:', formDemo, 'loading:', loading);
   const { index: liSelected } = formDemo || { index: 0 };
 
   useEffect(() => {

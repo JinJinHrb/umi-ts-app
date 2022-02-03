@@ -35,7 +35,7 @@ interface IRefs {
 
 const FormRender = ({ dispatch, formDemo, loading }: any) => {
   //   const [liSelected, selectLi0] = useState(0);
-  umiConsole.log('FormilyDemo #192 formDemo:', formDemo, 'loading:', loading);
+  //   umiConsole.log('FormRender #38 formDemo:', formDemo, 'loading:', loading);
   const { index: liSelected } = formDemo || { index: 0 };
 
   useEffect(() => {
