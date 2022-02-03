@@ -86,8 +86,22 @@ class MyComponent<IMyComponent> extends React.PureComponent<IProps, IState> {
     const propsValue = nextProps.value || {};
     const stateValue = prevState.value || {};
     Object.keys(stateValue).forEach((k) => {
-      const val = (stateValue as any)?.[k] || (propsValue as any)?.[k];
-      (nextStateValue as any)[k] = val;
+      const stateVal = (stateValue as any)?.[k];
+      const propsVal = (propsValue as any)?.[k];
+      if (stateVal && propsVal) {
+        (nextStateValue as any)[k] = propsVal;
+      } else if (stateVal && !propsVal) {
+        (nextStateValue as any)[k] = stateVal;
+      } else if (propsVal && !stateVal) {
+        if (stateVal === undefined) {
+          (nextStateValue as any)[k] = propsVal;
+        } else {
+          // 场景：全选 input 删除后，stateVal === ''
+          (nextStateValue as any)[k] = stateVal;
+        }
+      } else {
+        (nextStateValue as any)[k] = propsVal;
+      }
     });
     if (!_.isEmpty(nextStateValue)) {
       nextState.value = nextStateValue;
