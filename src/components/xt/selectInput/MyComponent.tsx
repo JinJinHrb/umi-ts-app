@@ -88,9 +88,7 @@ class MyComponent<IMyComponent> extends React.PureComponent<IProps, IState> {
     Object.keys(stateValue).forEach((k) => {
       const stateVal = (stateValue as any)?.[k];
       const propsVal = (propsValue as any)?.[k];
-      if (stateVal && propsVal) {
-        (nextStateValue as any)[k] = propsVal;
-      } else if (stateVal && !propsVal) {
+      if (stateVal && !propsVal) {
         (nextStateValue as any)[k] = stateVal;
       } else if (propsVal && !stateVal) {
         if (stateVal === undefined) {
