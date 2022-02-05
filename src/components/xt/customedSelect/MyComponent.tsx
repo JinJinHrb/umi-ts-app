@@ -1,5 +1,5 @@
 import React, { ChangeEvent, SyntheticEvent } from 'react';
-import { Input as AntdInput, Select as AntdSelect, Divider as AntdDivider } from 'antd';
+import { Input as AntdInput, Select as AntdSelect, Divider as AntdDivider, Button as AntdButton } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { LabeledValue } from 'antd/lib/select/index.d';
 import _ from 'lodash';
@@ -17,6 +17,7 @@ interface IProps {
   upperTitle?: string;
   inputType?: string;
   required?: boolean;
+  placeholder?: string;
 }
 
 interface IState {
@@ -30,6 +31,8 @@ interface IMyComponent {
   value: string[];
 }
 
+type TPartialState = Partial<IState>;
+
 class MyComponent<IMyComponent> extends React.PureComponent<IProps, IState> {
   constructor(props: IProps) {
     super(props);
@@ -40,7 +43,7 @@ class MyComponent<IMyComponent> extends React.PureComponent<IProps, IState> {
     };
   }
 
-  onChange(newData: IState) {
+  onChange(newData: TPartialState) {
     const value = newData?.value;
     // umiConsole.log('onChange #53 value:', value);
     if (!_.isEmpty(value)) {
@@ -82,8 +85,8 @@ class MyComponent<IMyComponent> extends React.PureComponent<IProps, IState> {
       nextState.options = polyfillOptions;
     }
     const nextStateValue = {};
-    const propsValue = nextProps.value || {};
-    const stateValue = prevState.value || {};
+    const propsValue = nextProps.value || [];
+    const stateValue = prevState.value || [];
     Object.keys(stateValue).forEach((k) => {
       const stateVal = (stateValue as any)?.[k];
       const propsVal = (propsValue as any)?.[k];
@@ -126,6 +129,15 @@ class MyComponent<IMyComponent> extends React.PureComponent<IProps, IState> {
     });
   };
 
+  deleteHandler = (value: LabeledValue['value']) => {
+    if (!value) {
+      return;
+    }
+    const options = (this.state?.options || []).filter((a) => a.value !== value);
+    const stateValue = Object.values(this.state?.value || []).filter((a) => a !== value);
+    this.setState({ options, value: stateValue }, () => this.onChange({ value: stateValue }));
+  };
+
   render() {
     const {
       suffixIcon,
@@ -137,11 +149,12 @@ class MyComponent<IMyComponent> extends React.PureComponent<IProps, IState> {
       upperTitle,
       inputType,
       required,
+      placeholder,
       ...props
     } = this.props;
     const { options, value, name } = this.state;
     return (
-      <div {...props}>
+      <div {...props} className={styles.parentWrapper}>
         {upperTitle && !title && (
           <div style={{ width: '100%' }}>
             <div className="ant-formily-item-label ant-formily-item-item-col-5">
@@ -166,8 +179,7 @@ class MyComponent<IMyComponent> extends React.PureComponent<IProps, IState> {
             <AntdInput onChange={this.onAntdInputChange.bind(this)} value={value.entered} type={inputType} />
           </div> */}
           <AntdSelect
-            style={{ width: 240 }}
-            placeholder="custom dropdown render"
+            placeholder={placeholder}
             onChange={this.onAntdSelectChange.bind(this)}
             dropdownRender={(menu) => (
               <div>
@@ -185,10 +197,31 @@ class MyComponent<IMyComponent> extends React.PureComponent<IProps, IState> {
               </div>
             )}
             mode="multiple"
+            optionLabelProp="label"
           >
             {options.map((item) => {
               const { value, label } = item;
-              return <AntdOption key={value}>{label}</AntdOption>;
+              //   return <AntdOption key={value}>{label}</AntdOption>;
+              return (
+                <AntdOption key={value} value={value} label={label}>
+                  <div className={styles.optionItem}>
+                    <span className={styles.optionLabelItem}>{label}</span>
+                    <AntdButton
+                      size={'small'}
+                      onClick={(e) => {
+                        const selectedValues = Object.values(this.state?.value || []).filter((a) => a === value) || [];
+                        // umiConsole.log('xt/customedSelect #213 selectedValues:', selectedValues);
+                        if (selectedValues.length < 1) {
+                          e.stopPropagation();
+                        }
+                        this.deleteHandler(value);
+                      }}
+                    >
+                      delete
+                    </AntdButton>
+                  </div>
+                </AntdOption>
+              );
             })}
           </AntdSelect>
         </div>
