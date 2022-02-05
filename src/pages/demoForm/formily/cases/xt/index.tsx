@@ -25,6 +25,7 @@ import { queryClient } from '@/utils/reactQuery';
 import _ from 'lodash';
 import { umiConsole } from '@/utils';
 import XtSelectInput from '@/components/xt/selectInput';
+import XtCustomedSelect from '@/components/xt/customedSelect';
 import cls from 'classnames';
 
 const form = createForm({
@@ -71,6 +72,7 @@ const SchemaField = createSchemaField({
     ArrayItems,
     Editable,
     XtSelectInput,
+    XtCustomedSelect,
   },
   scope: {
     fetchAddress: (field: any) => {
@@ -200,6 +202,19 @@ const schema = {
         },
       ],
     },
+
+    xtLabels: {
+      type: 'object',
+      title: '标签',
+      required: true,
+      'x-decorator': 'FormItem',
+      'x-component': 'XtCustomedSelect',
+      /* 'x-component-props': {
+            upperTitle: '标签',
+          }, */
+      enum: [],
+    },
+
     payAmount: {
       type: 'object',
       title: '币种',
