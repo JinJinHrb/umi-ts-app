@@ -8,10 +8,7 @@ import styles from './style.less';
 const { Option: AntdOption } = AntdSelect;
 
 interface IProps {
-  value: {
-    selected: string;
-    entered: string;
-  };
+  value: string[];
   suffixIcon?: string;
   onChange: (data: any) => void;
   options: LabeledValue | LabeledValue[];
@@ -23,24 +20,21 @@ interface IProps {
 }
 
 interface IState {
-  value: string;
+  value: string[];
   options: LabeledValue[];
   name: string;
 }
 
 interface IMyComponent {
   onChange: (data: any) => void;
-  value: {
-    selected: string;
-    entered: string;
-  };
+  value: string[];
 }
 
 class MyComponent<IMyComponent> extends React.PureComponent<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = {
-      value: '',
+      value: [],
       options: [],
       name: '',
     };
@@ -56,7 +50,7 @@ class MyComponent<IMyComponent> extends React.PureComponent<IProps, IState> {
     }
   }
 
-  onAntdSelectChange(value: string, option: LabeledValue | LabeledValue[]) {
+  onAntdSelectChange(value: string[], option: LabeledValue | LabeledValue[]) {
     umiConsole.log('onAntdSelectChange #60 value:', value);
     const newState = {} as any;
     newState.value = value;
@@ -190,6 +184,7 @@ class MyComponent<IMyComponent> extends React.PureComponent<IProps, IState> {
                 </div>
               </div>
             )}
+            mode="multiple"
           >
             {options.map((item) => {
               const { value, label } = item;
