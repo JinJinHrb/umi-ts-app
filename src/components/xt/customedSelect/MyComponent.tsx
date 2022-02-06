@@ -41,18 +41,6 @@ interface IMyComponent {
 
 type TPartialState = Partial<IState>;
 
-const content = (
-  <div
-    onClick={(e) => {
-      e.preventDefault();
-      e.stopPropagation();
-    }}
-  >
-    <p>Content</p>
-    <p>Content</p>
-  </div>
-);
-
 class MyComponent<IMyComponent> extends React.PureComponent<IProps, IState> {
   constructor(props: IProps) {
     super(props);
@@ -165,6 +153,10 @@ class MyComponent<IMyComponent> extends React.PureComponent<IProps, IState> {
     this.setState({ options, value: stateValue }, () => this.onChange({ value: stateValue }));
   };
 
+  /**
+   * @param visible
+   * true 保持上一级模态框打开状态
+   */
   handleClickChange = (visible: boolean) => {
     umiConsole.log('xt/customedSelect #160 visible:', visible);
     if (visible) {
@@ -173,6 +165,27 @@ class MyComponent<IMyComponent> extends React.PureComponent<IProps, IState> {
       this.setState({ open: undefined });
     }
   };
+
+  /**
+   * 选择颜色
+   */
+  pickColorHandler = (e: any) => {
+    const target = e.target;
+    umiConsole.log('pickColorHandler #167 target:', target);
+    const color = target?.getAttribute('color');
+    alert(color);
+  };
+
+  content = (
+    <div className={styles.colorPalette} onClick={this.pickColorHandler}>
+      <div color="#fa541c" style={{ background: 'rgb(250, 84, 28)' }}></div>
+      <div color="#fa8c16" style={{ background: 'rgb(250, 140, 22)' }}></div>
+      <div color="#fadb14" style={{ background: 'rgb(250, 219, 20)' }}></div>
+      <div color="#52c41a" style={{ background: 'rgb(82, 196, 26)' }}></div>
+      <div color="#2f54eb" style={{ background: 'rgb(47, 84, 235)' }}></div>
+      <div color="#eb2f96" style={{ background: 'rgb(235, 47, 150)' }}></div>
+    </div>
+  );
 
   render() {
     const {
@@ -218,15 +231,15 @@ class MyComponent<IMyComponent> extends React.PureComponent<IProps, IState> {
             placeholder={placeholder}
             onChange={this.onAntdSelectChange.bind(this)}
             dropdownRender={(menu) => (
-              <div className={/* styles.dropdownWrapper */ 'xt-dropdownWrapper'}>
+              <div className={'xt-dropdownWrapper'}>
                 {menu}
-                <AntdDivider style={{ margin: '4px 0' }} />
-                <div style={{ display: 'flex', flexWrap: 'nowrap', padding: 8 }}>
+                <AntdDivider className={styles.dropdownDivider} />
+                <div className={styles.dropdownExtension}>
                   <AntdInput className={styles.inputItem} value={name} onChange={this.onNameChange} />
                   <AntdPopover
                     placement="topRight"
                     title={'选颜色'}
-                    content={content}
+                    content={this.content}
                     trigger="click"
                     zIndex={1051}
                     onVisibleChange={this.handleClickChange}

@@ -2,6 +2,16 @@
   display: flex;
 }
 
+.dropdownDivider {
+  margin: 10px 0;
+}
+
+.dropdownExtension {
+  display: flex;
+  flex-wrap: nowrap;
+  margin: 0 10px 5px 10px;
+}
+
 .inputItem {
   flex: auto;
   height: 30px;
@@ -22,11 +32,22 @@
 }
 
 .addItemButton {
-  display: block;
-  flex: none;
   width: 80px;
   height: 30px;
   margin-left: 15px;
   padding-top: 5px;
   cursor: 'pointer';
+}
+
+.colorPalette {
+  display: flex;
+  justify-content: space-around;
+  & > div {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+  & > div:not(:last-child) {
+    margin-right: 15px;
+  }
 }
