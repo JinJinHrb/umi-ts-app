@@ -22,9 +22,9 @@ describe('测试 Link 模块', () => {
     expect(link?.textContent).toBe(text);
     expect(link?.href).toBe(siteUrl);
     expect(link?.className).toBe('normal');
-    userEvent.hover(link);
+    link && userEvent.hover(link);
     expect(link?.className).toBe('hovered');
-    userEvent.unhover(link);
+    link && userEvent.unhover(link);
     expect(link?.className).toBe('normal');
   });
 });

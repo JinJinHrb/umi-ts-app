@@ -19,6 +19,7 @@ export const SelectInput: React.FC<any> = connect(
       loading: true,
       value: true,
       title: true,
+      setDataSource: true,
     },
     (props: any, field: any) => {
       return {

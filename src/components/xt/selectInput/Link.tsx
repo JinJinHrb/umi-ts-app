@@ -7,7 +7,7 @@ const STATUS = {
 
 interface IProps {
   page?: string;
-  children: any;
+  children?: any;
 }
 
 const Link = ({ page, children }: IProps) => {
