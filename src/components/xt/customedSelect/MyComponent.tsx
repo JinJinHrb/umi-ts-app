@@ -1,11 +1,18 @@
 import React, { ChangeEvent, SyntheticEvent } from 'react';
-import { Input as AntdInput, Select as AntdSelect, Divider as AntdDivider, Button as AntdButton } from 'antd';
+import {
+  Input as AntdInput,
+  Select as AntdSelect,
+  Divider as AntdDivider,
+  Button as AntdButton,
+  Popover as AntdPopover,
+} from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { LabeledValue } from 'antd/lib/select/index.d';
 import _ from 'lodash';
 import { umiConsole } from '@/utils';
-import styles from './style.less';
 const { Option: AntdOption } = AntdSelect;
+import styles from './style.less';
+import './inlineStyle.less';
 
 interface IProps {
   value: string[];
@@ -24,6 +31,7 @@ interface IState {
   value: string[];
   options: LabeledValue[];
   name: string;
+  open?: boolean; // 下拉框
 }
 
 interface IMyComponent {
@@ -32,6 +40,18 @@ interface IMyComponent {
 }
 
 type TPartialState = Partial<IState>;
+
+const content = (
+  <div
+    onClick={(e) => {
+      e.preventDefault();
+      e.stopPropagation();
+    }}
+  >
+    <p>Content</p>
+    <p>Content</p>
+  </div>
+);
 
 class MyComponent<IMyComponent> extends React.PureComponent<IProps, IState> {
   constructor(props: IProps) {
@@ -114,19 +134,26 @@ class MyComponent<IMyComponent> extends React.PureComponent<IProps, IState> {
   }
 
   addItem = () => {
-    const { options, name } = this.state;
-    umiConsole.log('addItem #127 name:', name);
+    const { options } = this.state;
+    const name = _.trim(this.state.name);
+    const trimmedName = _.trim(name);
+    umiConsole.log('addItem #127 trimmedName:', trimmedName);
+    // if (!name) {
+    //   return;
+    // }
     // 有 label 或 value 重复的记录
-    const duplicates = options.filter((el) => el.label === name || el.value === name);
+    const duplicates = options.filter((el) => el.label === trimmedName || el.value === trimmedName);
     if (!_.isEmpty(duplicates)) {
       return;
     }
-    const newOptions = [...options];
-    newOptions.push({ label: name, value: name });
-    this.setState({
-      options: newOptions,
-      name: '',
-    });
+    const newState = { name: '' } as any;
+
+    if (trimmedName) {
+      const newOptions = [...options];
+      newOptions.push({ label: trimmedName, value: trimmedName });
+      newState.options = newOptions;
+    }
+    this.setState(newState);
   };
 
   deleteHandler = (value: LabeledValue['value']) => {
@@ -136,6 +163,15 @@ class MyComponent<IMyComponent> extends React.PureComponent<IProps, IState> {
     const options = (this.state?.options || []).filter((a) => a.value !== value);
     const stateValue = Object.values(this.state?.value || []).filter((a) => a !== value);
     this.setState({ options, value: stateValue }, () => this.onChange({ value: stateValue }));
+  };
+
+  handleClickChange = (visible: boolean) => {
+    umiConsole.log('xt/customedSelect #160 visible:', visible);
+    if (visible) {
+      this.setState({ open: true });
+    } else {
+      this.setState({ open: undefined });
+    }
   };
 
   render() {
@@ -152,9 +188,9 @@ class MyComponent<IMyComponent> extends React.PureComponent<IProps, IState> {
       placeholder,
       ...props
     } = this.props;
-    const { options, value, name } = this.state;
+    const { options, /* value, */ name, open } = this.state;
     return (
-      <div {...props} className={styles.parentWrapper}>
+      <div {...props}>
         {upperTitle && !title && (
           <div style={{ width: '100%' }}>
             <div className="ant-formily-item-label ant-formily-item-item-col-5">
@@ -182,28 +218,38 @@ class MyComponent<IMyComponent> extends React.PureComponent<IProps, IState> {
             placeholder={placeholder}
             onChange={this.onAntdSelectChange.bind(this)}
             dropdownRender={(menu) => (
-              <div>
+              <div className={/* styles.dropdownWrapper */ 'xt-dropdownWrapper'}>
                 {menu}
                 <AntdDivider style={{ margin: '4px 0' }} />
                 <div style={{ display: 'flex', flexWrap: 'nowrap', padding: 8 }}>
-                  <AntdInput style={{ flex: 'auto' }} value={name} onChange={this.onNameChange} />
-                  <a
-                    style={{ flex: 'none', padding: '8px', display: 'block', cursor: 'pointer' }}
-                    onClick={this.addItem}
+                  <AntdInput className={styles.inputItem} value={name} onChange={this.onNameChange} />
+                  <AntdPopover
+                    placement="topRight"
+                    title={'选颜色'}
+                    content={content}
+                    trigger="click"
+                    zIndex={1051}
+                    onVisibleChange={this.handleClickChange}
                   >
-                    <PlusOutlined /> Add item
+                    <AntdButton size={'small'} className={styles.colorPaletteButton}>
+                      TR
+                    </AntdButton>
+                  </AntdPopover>
+                  <a className={styles.addItemButton} onClick={this.addItem}>
+                    <PlusOutlined /> 添加
                   </a>
                 </div>
               </div>
             )}
             mode="multiple"
             optionLabelProp="label"
+            open={open}
           >
             {options.map((item) => {
               const { value, label } = item;
               //   return <AntdOption key={value}>{label}</AntdOption>;
               return (
-                <AntdOption key={value} value={value} label={label}>
+                <AntdOption key={value}>
                   <div className={styles.optionItem}>
                     <span className={styles.optionLabelItem}>{label}</span>
                     <AntdButton
