@@ -19,6 +19,21 @@ import { CustomTagProps } from 'rc-select/lib/BaseSelect.d';
 
 const PREDEFINED_COLORS = ['#fa541c', '#fa8c16', '#fadb14', '#52c41a', '#2f54eb', '#eb2f96'];
 
+const DEFAULT_TEXT = {
+  'zh-cn': {
+    deleteText: '删除',
+    addText: '添加',
+    pickColorText: '选颜色',
+  },
+  en: {
+    deleteText: 'delete',
+    addText: 'add',
+    pickColorText: 'pick color',
+  },
+};
+
+const DEFAULT_LANGUAGE = 'zh-cn'; // 'en'; // 'zh-cn';
+
 interface IProps {
   value: string[];
   suffixIcon?: string;
@@ -29,6 +44,9 @@ interface IProps {
   inputType?: string;
   required?: boolean;
   placeholder?: string;
+  deleteText?: string;
+  addText?: string;
+  pickColorText?: string;
   onChange: (data: any) => void;
   setDataSource: (dataSource?: FieldDataSource) => void;
 }
@@ -45,6 +63,9 @@ interface IState {
   open?: boolean; // true - 保持下拉框打开
   color: string; // 当前选中的文字
   popoverVisible: boolean; // 气泡框是否打开
+  deleteText: string;
+  addText: string;
+  pickColorText: string;
 }
 
 type TPartialState = Partial<IState>;
@@ -58,6 +79,9 @@ class MyComponent extends React.PureComponent<IProps, IState> {
       name: '',
       color: PREDEFINED_COLORS[0],
       popoverVisible: false,
+      deleteText: this.props.deleteText || DEFAULT_TEXT[DEFAULT_LANGUAGE].deleteText,
+      addText: this.props.addText || DEFAULT_TEXT[DEFAULT_LANGUAGE].addText,
+      pickColorText: this.props.pickColorText || DEFAULT_TEXT[DEFAULT_LANGUAGE].pickColorText,
     };
     this.inputRef = React.createRef();
   }
@@ -313,11 +337,14 @@ class MyComponent extends React.PureComponent<IProps, IState> {
       inputType,
       required,
       placeholder,
+      deleteText: propsDeleteText,
+      addText: propsAddText,
+      pickColorText: propsPickColorText,
       onChange,
       setDataSource,
       ...props
     } = this.props;
-    const { options, value, name, open, color, popoverVisible } = this.state;
+    const { options, value, name, open, color, popoverVisible, deleteText, addText, pickColorText } = this.state;
     // umiConsole.log('xt/customedSelect/.../render #303 name:', name, 'value:', value);
     return (
       <div {...props}>
@@ -363,7 +390,7 @@ class MyComponent extends React.PureComponent<IProps, IState> {
                   />
                   <AntdPopover
                     placement="topRight"
-                    title={'选颜色'}
+                    title={pickColorText}
                     content={this.content}
                     trigger="click"
                     zIndex={1051}
@@ -375,7 +402,7 @@ class MyComponent extends React.PureComponent<IProps, IState> {
                     </div>
                   </AntdPopover>
                   <a className={styles.addItemButton} onClick={this.addItem}>
-                    <PlusOutlined /> 添加
+                    <PlusOutlined /> {addText}
                   </a>
                 </div>
               </div>
@@ -404,7 +431,7 @@ class MyComponent extends React.PureComponent<IProps, IState> {
                         this.deleteHandler(value);
                       }}
                     >
-                      <span style={{ fontSize: '12px' }}>删除</span>
+                      <span style={{ fontSize: '12px' }}>{deleteText}</span>
                     </AntdButton>
                   </div>
                 </AntdOption>
