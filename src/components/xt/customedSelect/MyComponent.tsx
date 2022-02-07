@@ -23,12 +23,12 @@ const DEFAULT_TEXT = {
   'zh-cn': {
     deleteText: '删除',
     addText: '添加',
-    pickColorText: '选颜色',
+    colorText: '颜色',
   },
   en: {
     deleteText: 'delete',
     addText: 'add',
-    pickColorText: 'pick color',
+    colorText: 'color',
   },
 };
 
@@ -44,9 +44,11 @@ interface IProps {
   inputType?: string;
   required?: boolean;
   placeholder?: string;
-  deleteText?: string;
-  addText?: string;
-  pickColorText?: string;
+  locales: {
+    deleteText?: string;
+    addText?: string;
+    colorText?: string;
+  };
   onChange: (data: any) => void;
   setDataSource: (dataSource?: FieldDataSource) => void;
 }
@@ -63,9 +65,11 @@ interface IState {
   open?: boolean; // true - 保持下拉框打开
   color: string; // 当前选中的文字
   popoverVisible: boolean; // 气泡框是否打开
-  deleteText: string;
-  addText: string;
-  pickColorText: string;
+  locales: {
+    deleteText: string;
+    addText: string;
+    colorText: string;
+  };
 }
 
 type TPartialState = Partial<IState>;
@@ -79,9 +83,7 @@ class MyComponent extends React.PureComponent<IProps, IState> {
       name: '',
       color: PREDEFINED_COLORS[0],
       popoverVisible: false,
-      deleteText: this.props.deleteText || DEFAULT_TEXT[DEFAULT_LANGUAGE].deleteText,
-      addText: this.props.addText || DEFAULT_TEXT[DEFAULT_LANGUAGE].addText,
-      pickColorText: this.props.pickColorText || DEFAULT_TEXT[DEFAULT_LANGUAGE].pickColorText,
+      locales: _.merge(this.props.locales, DEFAULT_TEXT[DEFAULT_LANGUAGE]),
     };
     this.inputRef = React.createRef();
   }
@@ -162,6 +164,12 @@ class MyComponent extends React.PureComponent<IProps, IState> {
         },
       );
     }
+
+    const newLocales = _.merge(nextProps.locales, prevState.locales);
+    if (!_.isEqual(newLocales, prevState.locales)) {
+      nextState.locales = newLocales;
+    }
+
     if (_.isEmpty(nextState)) {
       return null;
     }
@@ -337,14 +345,12 @@ class MyComponent extends React.PureComponent<IProps, IState> {
       inputType,
       required,
       placeholder,
-      deleteText: propsDeleteText,
-      addText: propsAddText,
-      pickColorText: propsPickColorText,
+      locales: propsLocales,
       onChange,
       setDataSource,
       ...props
     } = this.props;
-    const { options, value, name, open, color, popoverVisible, deleteText, addText, pickColorText } = this.state;
+    const { options, value, name, open, color, popoverVisible, locales } = this.state;
     // umiConsole.log('xt/customedSelect/.../render #303 name:', name, 'value:', value);
     return (
       <div {...props}>
@@ -390,7 +396,7 @@ class MyComponent extends React.PureComponent<IProps, IState> {
                   />
                   <AntdPopover
                     placement="topRight"
-                    title={pickColorText}
+                    title={locales.colorText}
                     content={this.content}
                     trigger="click"
                     zIndex={1051}
@@ -402,7 +408,7 @@ class MyComponent extends React.PureComponent<IProps, IState> {
                     </div>
                   </AntdPopover>
                   <a className={styles.addItemButton} onClick={this.addItem}>
-                    <PlusOutlined /> {addText}
+                    <PlusOutlined /> {locales.addText}
                   </a>
                 </div>
               </div>
@@ -431,7 +437,7 @@ class MyComponent extends React.PureComponent<IProps, IState> {
                         this.deleteHandler(value);
                       }}
                     >
-                      <span style={{ fontSize: '12px' }}>{deleteText}</span>
+                      <span style={{ fontSize: '12px' }}>{locales.deleteText}</span>
                     </AntdButton>
                   </div>
                 </AntdOption>
