@@ -205,14 +205,27 @@ const schema = {
     xtLabels: {
       type: 'object',
       title: '标签',
-      required: true,
+      //   required: true,
+      'x-validator': [
+        {
+          required: true,
+          message: '必填字段',
+        },
+      ],
       'x-decorator': 'FormItem',
       'x-component': 'XtCustomedSelect',
       'x-component-props': {
         // upperTitle: '标签',
         placeholder: '自选输入框',
       },
-      enum: [],
+      enum: [] /* [
+        '{"text":"王五","color":"#fa8c16"}',
+        '{"text":"李四","color":"#fa541c"}',
+        '{"text":"张三","color":"#fa541c"}',
+      ].map((value) => ({
+        value,
+        label: value,
+      })), */,
     },
 
     payAmount: {
@@ -424,6 +437,11 @@ export default () => {
           { name: '李四', phone: '16873452678', email: 'lisi@gmail.com' },
         ],
         socialAccount: { selected: 'Twitter', entered: 'xt_official' },
+        xtLabels: [
+          '{"text":"王五","color":"#fa8c16"}',
+          '{"text":"李四","color":"#fa541c"}',
+          '{"text":"张三","color":"#fa541c"}',
+        ],
       });
       setLoading(false);
     }, 2000);

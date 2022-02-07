@@ -10,7 +10,7 @@ import {
 import { PlusOutlined } from '@ant-design/icons';
 import { LabeledValue } from 'antd/lib/select/index.d';
 import _ from 'lodash';
-import { umiConsole } from '@/utils';
+// import { umiConsole } from '@/utils';
 const { Option: AntdOption } = AntdSelect;
 import styles from './style.less';
 import './inlineStyle.less';
@@ -33,13 +33,18 @@ interface IProps {
   setDataSource: (dataSource?: FieldDataSource) => void;
 }
 
+interface IParsedValue {
+  text: string;
+  color: string;
+}
+
 interface IState {
   value: string[];
   options: LabeledValue[];
-  name: string;
-  open?: boolean; // 下拉框
-  color: string;
-  popoverVisible: boolean;
+  name: string; // 当前输入的文字
+  open?: boolean; // true - 保持下拉框打开
+  color: string; // 当前选中的文字
+  popoverVisible: boolean; // 气泡框是否打开
 }
 
 type TPartialState = Partial<IState>;
@@ -71,7 +76,7 @@ class MyComponent extends React.PureComponent<IProps, IState> {
   }
 
   onAntdSelectChange(value: string[], option: LabeledValue | LabeledValue[]) {
-    umiConsole.log('onAntdSelectChange #60 value:', value);
+    // umiConsole.log('onAntdSelectChange #60 value:', value);
     const newState = {} as any;
     newState.value = value;
     this.setState(newState, () => this.onChange(newState));
@@ -98,36 +103,45 @@ class MyComponent extends React.PureComponent<IProps, IState> {
     const polyfillOptions = _.isArray(options) ? options : [options];
     const nextState = {} as any;
     // if (!_.isEqual(polyfillOptions, prevState.options)) {
-    if (!prevState.options) {
+    if (_.isEmpty(prevState.options)) {
       nextState.options = polyfillOptions;
     }
-    // umiConsole.log('xt/customedSelect/MyComponent/getDerivedStateFromProps #92 polyfillOptions:', polyfillOptions);
-    const nextStateValue = {};
+    /* umiConsole.log(
+      'xt/customedSelect/MyComponent/getDerivedStateFromProps #110',
+      'prevState.options:',
+      prevState.options,
+      'nextState.options:',
+      nextState.options,
+    ); */
     const propsValue = nextProps.value || [];
     const stateValue = prevState.value || [];
-    Object.keys(stateValue).forEach((k) => {
-      const stateVal = (stateValue as any)?.[k];
-      const propsVal = (propsValue as any)?.[k];
-      if (stateVal && !propsVal) {
-        (nextStateValue as any)[k] = stateVal;
-      } else if (propsVal && !stateVal) {
-        if (stateVal === undefined) {
-          (nextStateValue as any)[k] = propsVal;
-        } else {
-          // 场景：全选 input 删除后，stateVal === ''
-          (nextStateValue as any)[k] = stateVal;
-        }
-      } else {
-        (nextStateValue as any)[k] = propsVal;
-      }
-    });
-    if (!_.isEmpty(nextStateValue)) {
-      nextState.value = nextStateValue;
+    // umiConsole.log('xt/customedSelect/MyComponent/getDerivedStateFromProps #107 nextProps:', nextProps);
+    // umiConsole.log('xt/customedSelect/MyComponent/getDerivedStateFromProps #108 prevState:', prevState);
+    if (_.isEmpty(stateValue) && !_.isEmpty(propsValue)) {
+      let arr = [] as string[];
+      Object.entries(propsValue).forEach(([key, value]) => {
+        arr.push(value);
+      });
+      nextState.value = arr;
+      nextState.options = _.uniqWith(
+        (nextState.options || prevState.options).concat(arr.map((value) => ({ value, label: value }))),
+        (a: LabeledValue, b: LabeledValue) => {
+          let aObj = {} as IParsedValue;
+          let bObj = {} as IParsedValue;
+          try {
+            aObj = JSON.parse(a.value as string);
+            bObj = JSON.parse(b.value as string);
+          } catch (e) {
+            return false;
+          }
+          return aObj.text === bObj.text;
+        },
+      );
     }
     if (_.isEmpty(nextState)) {
       return null;
     }
-    // umiConsole.log('getDerivedStateFromProps #84 nextState:', nextState);
+    // umiConsole.log('xt/customedSelect/MyComponent/getDerivedStateFromProps #114 nextState:', nextState);
     return nextState;
   }
 
@@ -182,7 +196,7 @@ class MyComponent extends React.PureComponent<IProps, IState> {
    * true 保持上一级模态框打开状态
    */
   handleClickChange = (visible: boolean) => {
-    umiConsole.log('xt/customedSelect #160 visible:', visible);
+    // umiConsole.log('xt/customedSelect #160 visible:', visible);
     if (visible) {
       this.setState({ open: true, popoverVisible: true });
     } else {
@@ -202,21 +216,21 @@ class MyComponent extends React.PureComponent<IProps, IState> {
     if (!color) {
       return;
     }
-    umiConsole.log('pickColorHandler #180 color:', color);
+    // umiConsole.log('pickColorHandler #180 color:', color);
     this.setState({ color, popoverVisible: false /* open: undefined */ });
   };
 
   content = (
     <div className={styles.colorPalette} onClick={this.pickColorHandler}>
       {PREDEFINED_COLORS.map((color) => (
-        <div color={`${color}`} style={{ background: `${color}` }}></div>
+        <div key={color} color={`${color}`} style={{ background: `${color}` }}></div>
       ))}
     </div>
   );
 
   // 透明浮层 Start
   transparentLayerClickHandler = (e: SyntheticEvent<HTMLDivElement>) => {
-    umiConsole.log('#225');
+    // umiConsole.log('#225');
     if (this.state.open) {
       this.setState({ open: undefined });
     }
@@ -245,7 +259,7 @@ class MyComponent extends React.PureComponent<IProps, IState> {
     try {
       label && (parsedLabel = JSON.parse(label as string));
     } catch (e) {
-      umiConsole.error(e, 'xt/customedSelect/.../tagRender #255 props:', props);
+      //   umiConsole.error(e, 'xt/customedSelect/.../tagRender #255 props:', props);
       parsedLabel = { color: 'black', text: label };
     }
     const { text, color } = parsedLabel as any;
@@ -303,7 +317,8 @@ class MyComponent extends React.PureComponent<IProps, IState> {
       setDataSource,
       ...props
     } = this.props;
-    const { options, /* value, */ name, open, color, popoverVisible } = this.state;
+    const { options, value, name, open, color, popoverVisible } = this.state;
+    // umiConsole.log('xt/customedSelect/.../render #303 name:', name, 'value:', value);
     return (
       <div {...props}>
         {this.state.open && this.transparentLayer}
@@ -368,10 +383,12 @@ class MyComponent extends React.PureComponent<IProps, IState> {
             mode="multiple"
             optionLabelProp="label"
             open={open}
+            value={value}
           >
             {options.map((item) => {
               const { value, label } = item;
               //   return <AntdOption key={value}>{label}</AntdOption>;
+              //   umiConsole.log('xt/customedSelect/MyComponent #367 item:', item);
               return (
                 <AntdOption key={value}>
                   <div className={styles.optionItem}>
