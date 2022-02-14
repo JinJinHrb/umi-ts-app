@@ -14,6 +14,8 @@ import { Input } from 'antd';
 import Card from './Card';
 import { FormItem, FormLayout, NumberPicker } from '@formily/antd';
 import Items from './Items';
+import useRemainingAmount from './useRemainingAmount';
+import { umiConsole } from '@/utils';
 
 const form = createForm({
   effects: () => {},
@@ -32,7 +34,8 @@ const SchemaField = createSchemaField({
 });
 
 export default () => {
-  //使用schema
+  const remainingAmount = useRemainingAmount();
+  umiConsole.log('demoForm/formily/cases/ArrayItmes #38 remainingAmount:', remainingAmount);
   return (
     <FormProvider form={form}>
       <SchemaField>

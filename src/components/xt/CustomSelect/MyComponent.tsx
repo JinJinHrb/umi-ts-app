@@ -10,12 +10,12 @@ import {
 import { PlusOutlined } from '@ant-design/icons';
 import { LabeledValue } from 'antd/lib/select/index.d';
 import _ from 'lodash';
-// import { umiConsole } from '@/utils';
 const { Option: AntdOption } = AntdSelect;
 import styles from './style.less';
 import './inlineStyle.less';
 import { FieldDataSource } from '@formily/core/esm/types';
 import { CustomTagProps } from 'rc-select/lib/BaseSelect.d';
+// import { umiConsole } from '@/utils';
 
 const PREDEFINED_COLORS = ['#fa541c', '#fa8c16', '#fadb14', '#52c41a', '#2f54eb', '#eb2f96'];
 
@@ -65,6 +65,7 @@ interface IState {
   open?: boolean; // true - 保持下拉框打开
   color: string; // 当前选中的文字
   popoverVisible: boolean; // 气泡框是否打开
+  initDone: boolean; // 补丁：防止主动删除所有选项后又加载出老的选项
   locales: {
     deleteText: string;
     addText: string;
@@ -83,6 +84,7 @@ class MyComponent extends React.PureComponent<IProps, IState> {
       name: '',
       color: PREDEFINED_COLORS[0],
       popoverVisible: false,
+      initDone: false,
       locales: _.merge(this.props.locales, DEFAULT_TEXT[DEFAULT_LANGUAGE]),
     };
     this.inputRef = React.createRef();
@@ -118,7 +120,10 @@ class MyComponent extends React.PureComponent<IProps, IState> {
   } */
 
   onNameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const name = _.trim(event.target.value);
+    const name = event.target?.value;
+    if (_.isNil(name)) {
+      return;
+    }
     this.setState({
       name,
     });
@@ -143,7 +148,7 @@ class MyComponent extends React.PureComponent<IProps, IState> {
     const stateValue = prevState.value || [];
     // umiConsole.log('xt/customedSelect/MyComponent/getDerivedStateFromProps #107 nextProps:', nextProps);
     // umiConsole.log('xt/customedSelect/MyComponent/getDerivedStateFromProps #108 prevState:', prevState);
-    if (_.isEmpty(stateValue) && !_.isEmpty(propsValue)) {
+    if (!prevState.initDone && _.isEmpty(stateValue) && !_.isEmpty(propsValue)) {
       let arr = [] as string[];
       Object.entries(propsValue).forEach(([key, value]) => {
         arr.push(value);
@@ -163,7 +168,13 @@ class MyComponent extends React.PureComponent<IProps, IState> {
           return aObj.text === bObj.text;
         },
       );
+      if (!prevState.initDone) {
+        nextState.initDone = true;
+      }
     }
+    /* if (!prevState.initDone) {
+      umiConsole.log('#220 nextProps.value:', nextProps.value);
+    } */
 
     const newLocales = _.merge(nextProps.locales, prevState.locales);
     if (!_.isEqual(newLocales, prevState.locales)) {
@@ -423,7 +434,7 @@ class MyComponent extends React.PureComponent<IProps, IState> {
               //   return <AntdOption key={value}>{label}</AntdOption>;
               //   umiConsole.log('xt/customedSelect/MyComponent #367 item:', item);
               return (
-                <AntdOption key={value}>
+                <AntdOption key={value} value={value}>
                   <div className={styles.optionItem}>
                     <span className={styles.optionLabelItem}>{this.optionRender(label as string)}</span>
                     <AntdButton

@@ -1,7 +1,7 @@
 import { ArrayField, Field } from '@formily/core';
 import { RecursionField, useField, useFieldSchema } from '@formily/react';
 import { observer } from '@formily/reactive-react';
-import React, { ReactNode, useContext } from 'react';
+import React from 'react';
 import { ReactElement } from 'react';
 
 type PropsType = Field & {

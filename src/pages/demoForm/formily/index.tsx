@@ -38,6 +38,11 @@ const { Text } = Typography;
 
 const options = [
   {
+    text: 'ArrayItemsForm',
+    component: <ArrayItemsForm className={'formily-demos'} />,
+    key: 'ArrayItemsForm',
+  },
+  {
     text: 'BasicForm',
     component: <BasicForm className={'formily-demos'} />,
     key: 'BasicForm',
@@ -116,11 +121,6 @@ const options = [
     text: 'SchemaControlledForm',
     component: <SchemaControlledForm className={'formily-demos'} />,
     key: 'SchemaControlledForm',
-  },
-  {
-    text: 'ArrayItemsForm',
-    component: <ArrayItemsForm className={'formily-demos'} />,
-    key: 'ArrayItemsForm',
   },
   {
     text: 'InitiactiveChainReactionForm',

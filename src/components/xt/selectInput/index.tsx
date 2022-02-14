@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect, mapProps, mapReadPretty, IStateMapper } from '@formily/react';
+import { connect, mapProps, mapReadPretty } from '@formily/react';
 // import { Input as AntdInput, Select as AntSelect } from 'antd';
 // import { InputProps, TextAreaProps } from 'antd/lib/input';
 import { PreviewText } from '../../preview-text';

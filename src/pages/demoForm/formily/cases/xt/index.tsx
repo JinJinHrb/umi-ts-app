@@ -24,8 +24,8 @@ import { GET_GEO_LOCATION_QUERY_KEY } from '@/utils/constants';
 import { queryClient } from '@/utils/reactQuery';
 import _ from 'lodash';
 import { umiConsole } from '@/utils';
-import XtSelectInput from '@/components/xt/selectInput';
-import XtCustomedSelect from '@/components/xt/customedSelect';
+import XtSelectInput from '@/components/xt/SelectInput';
+import XtCustomedSelect from '@/components/xt/CustomSelect';
 
 const form = createForm({
   validateFirst: true,
