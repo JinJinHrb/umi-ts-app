@@ -1,4 +1,4 @@
-import React, { ChangeEvent, EventHandler, SyntheticEvent } from 'react';
+import React, { ChangeEvent, SyntheticEvent } from 'react';
 import {
   Input as AntdInput,
   Select as AntdSelect,
@@ -10,12 +10,13 @@ import {
 import { PlusOutlined } from '@ant-design/icons';
 import { LabeledValue } from 'antd/lib/select/index.d';
 import _ from 'lodash';
-const { Option: AntdOption } = AntdSelect;
 import styles from './style.less';
 import './inlineStyle.less';
 import { FieldDataSource } from '@formily/core/esm/types';
 import { CustomTagProps } from 'rc-select/lib/BaseSelect.d';
 // import { umiConsole } from '@/utils';
+
+const { Option: AntdOption } = AntdSelect;
 
 const PREDEFINED_COLORS = ['#fa541c', '#fa8c16', '#fadb14', '#52c41a', '#2f54eb', '#eb2f96'];
 
@@ -67,17 +68,21 @@ interface IState {
   popoverVisible: boolean; // 气泡框是否打开
   initDone: boolean; // 补丁：防止主动删除所有选项后又加载出老的选项
   locales: {
-    deleteText: string;
-    addText: string;
-    colorText: string;
+    deleteText?: string;
+    addText?: string;
+    colorText?: string;
   };
 }
 
 type TPartialState = Partial<IState>;
 
 class MyComponent extends React.PureComponent<IProps, IState> {
+  inputRef: React.RefObject<AntdInput>;
+
   constructor(props: IProps) {
     super(props);
+    let { locales } = this.props;
+    locales = _.merge(locales, DEFAULT_TEXT[DEFAULT_LANGUAGE]);
     this.state = {
       value: [],
       options: [],
@@ -85,14 +90,12 @@ class MyComponent extends React.PureComponent<IProps, IState> {
       color: PREDEFINED_COLORS[0],
       popoverVisible: false,
       initDone: false,
-      locales: _.merge(this.props.locales, DEFAULT_TEXT[DEFAULT_LANGUAGE]),
+      locales,
     };
     this.inputRef = React.createRef();
   }
 
-  inputRef: React.RefObject<AntdInput>;
-
-  onChange(newData: TPartialState) {
+  onChange = (newData: TPartialState) => {
     const value = newData?.value;
     // umiConsole.log('onChange #53 value:', value);
     if (!_.isEmpty(value)) {
@@ -101,14 +104,14 @@ class MyComponent extends React.PureComponent<IProps, IState> {
       //   this.props?.onChange(undefined);
       this.inputRef.current?.focus();
     }
-  }
+  };
 
-  onAntdSelectChange(value: string[], option: LabeledValue | LabeledValue[]) {
+  onAntdSelectChange = (value: string[] /* , option: LabeledValue | LabeledValue[] */) => {
     // umiConsole.log('onAntdSelectChange #60 value:', value);
     const newState = {} as any;
     newState.value = value;
     this.setState(newState, () => this.onChange(newState));
-  }
+  };
 
   /*  onAntdInputChange(event: SyntheticEvent) {
     const value = (event.target as any)?.value;
@@ -149,8 +152,8 @@ class MyComponent extends React.PureComponent<IProps, IState> {
     // umiConsole.log('xt/customedSelect/MyComponent/getDerivedStateFromProps #107 nextProps:', nextProps);
     // umiConsole.log('xt/customedSelect/MyComponent/getDerivedStateFromProps #108 prevState:', prevState);
     if (!prevState.initDone && _.isEmpty(stateValue) && !_.isEmpty(propsValue)) {
-      let arr = [] as string[];
-      Object.entries(propsValue).forEach(([key, value]) => {
+      const arr = [] as string[];
+      Object.entries(propsValue).forEach(([, value]) => {
         arr.push(value);
       });
       nextState.value = arr;
@@ -190,7 +193,7 @@ class MyComponent extends React.PureComponent<IProps, IState> {
 
   addItem = () => {
     const { options } = this.state;
-    const color = this.state.color;
+    const { color } = this.state;
     const name = _.trim(this.state.name);
     const trimmedName = _.trim(name);
     // umiConsole.log('addItem #127 trimmedName:', trimmedName);
@@ -266,13 +269,13 @@ class MyComponent extends React.PureComponent<IProps, IState> {
   content = (
     <div className={styles.colorPalette} onClick={this.pickColorHandler}>
       {PREDEFINED_COLORS.map((color) => (
-        <div key={color} color={`${color}`} style={{ background: `${color}` }}></div>
+        <div key={color} color={`${color}`} style={{ background: `${color}` }} />
       ))}
     </div>
   );
 
   // 透明浮层 Start
-  transparentLayerClickHandler = (e: SyntheticEvent<HTMLDivElement>) => {
+  transparentLayerClickHandler = (/* e: SyntheticEvent<HTMLDivElement> */) => {
     // umiConsole.log('#225');
     if (this.state.open) {
       this.setState({ open: undefined });
@@ -297,19 +300,51 @@ class MyComponent extends React.PureComponent<IProps, IState> {
   // 透明浮层 End
 
   tagRender = (props: CustomTagProps) => {
-    const { label, value, closable, onClose } = props;
+    const { label, /* value, */ closable, onClose } = props;
     let parsedLabel = {};
-    try {
-      label && (parsedLabel = JSON.parse(label as string));
-    } catch (e) {
-      //   umiConsole.error(e, 'xt/customedSelect/.../tagRender #255 props:', props);
-      parsedLabel = { color: 'black', text: label };
+    if (label) {
+      try {
+        parsedLabel = JSON.parse(label as string);
+      } catch (e) {
+        //   umiConsole.error(e, 'xt/customedSelect/.../tagRender #255 props:', props);
+        parsedLabel = { color: 'black', text: label };
+      }
     }
     const { text, color } = parsedLabel as any;
     return (
       <AntdTag color={color} closable={closable} onClose={onClose}>
         {text}
       </AntdTag>
+    );
+  };
+
+  dropdownRender = (menu: React.ReactElement<any, string | React.JSXElementConstructor<any>>) => {
+    const { locales, name, popoverVisible, color } = this.state;
+    // umiConsole.log('CustomSelect/MyComponent/dropdownRender #333', locales, name, popoverVisible, color);
+    return (
+      <div className="xt-dropdownWrapper">
+        {menu}
+        <AntdDivider className={styles.dropdownDivider} />
+        <div className={styles.dropdownExtension}>
+          <AntdInput className={styles.inputItem} value={name} onChange={this.onNameChange} ref={this.inputRef} />
+          <AntdPopover
+            placement="topRight"
+            title={locales.colorText}
+            content={this.content}
+            trigger="click"
+            zIndex={1051}
+            visible={popoverVisible}
+            onVisibleChange={this.handleClickChange}
+          >
+            <div className={styles.colorPaletteButton}>
+              <div style={{ backgroundColor: color, width: '15px', height: '15px' }}>&nbsp;</div>
+            </div>
+          </AntdPopover>
+          <a className={styles.addItemButton} onClick={this.addItem}>
+            <PlusOutlined /> {locales.addText}
+          </a>
+        </div>
+      </div>
     );
   };
 
@@ -340,7 +375,7 @@ class MyComponent extends React.PureComponent<IProps, IState> {
             height: '15px',
             marginLeft: '10px',
           }}
-        ></span>
+        />
       </div>
     );
   };
@@ -361,7 +396,7 @@ class MyComponent extends React.PureComponent<IProps, IState> {
       setDataSource,
       ...props
     } = this.props;
-    const { options, value, name, open, color, popoverVisible, locales } = this.state;
+    const { options, value, open, locales /*  name, color, popoverVisible */ } = this.state;
     // umiConsole.log('xt/customedSelect/.../render #303 name:', name, 'value:', value);
     return (
       <div {...props}>
@@ -372,7 +407,7 @@ class MyComponent extends React.PureComponent<IProps, IState> {
             <div className="ant-formily-item-label ant-formily-item-item-col-5">
               <div className="ant-formily-item-label-content">
                 <span className="ant-formily-item-asterisk">*</span>
-                <label>{upperTitle}</label>
+                <span>{upperTitle}</span>
               </div>
               <span className="ant-formily-item-colon">:</span>
             </div>
@@ -392,60 +427,64 @@ class MyComponent extends React.PureComponent<IProps, IState> {
           </div> */}
           <AntdSelect
             placeholder={placeholder}
-            onChange={this.onAntdSelectChange.bind(this)}
+            onChange={this.onAntdSelectChange}
             tagRender={this.tagRender}
-            dropdownRender={(menu) => (
-              <div className={'xt-dropdownWrapper'}>
-                {menu}
-                <AntdDivider className={styles.dropdownDivider} />
-                <div className={styles.dropdownExtension}>
-                  <AntdInput
-                    className={styles.inputItem}
-                    value={name}
-                    onChange={this.onNameChange}
-                    ref={this.inputRef}
-                  />
-                  <AntdPopover
-                    placement="topRight"
-                    title={locales.colorText}
-                    content={this.content}
-                    trigger="click"
-                    zIndex={1051}
-                    visible={popoverVisible}
-                    onVisibleChange={this.handleClickChange}
-                  >
-                    <div className={styles.colorPaletteButton}>
-                      <div style={{ backgroundColor: color, width: '15px', height: '15px' }}>&nbsp;</div>
-                    </div>
-                  </AntdPopover>
-                  <a className={styles.addItemButton} onClick={this.addItem}>
-                    <PlusOutlined /> {locales.addText}
-                  </a>
-                </div>
-              </div>
-            )}
+            dropdownRender={
+              this.dropdownRender
+              /* menu => (
+							<div className='xt-dropdownWrapper'>
+								{menu}
+								<AntdDivider className={styles.dropdownDivider} />
+								<div className={styles.dropdownExtension}>
+									<AntdInput
+										className={styles.inputItem}
+										value={name}
+										onChange={this.onNameChange}
+										ref={this.inputRef}
+									/>
+									<AntdPopover
+										placement='topRight'
+										title={locales.colorText}
+										content={this.content}
+										trigger='click'
+										zIndex={1051}
+										visible={popoverVisible}
+										onVisibleChange={this.handleClickChange}
+									>
+										<div className={styles.colorPaletteButton}>
+											<div style={{ backgroundColor: color, width: '15px', height: '15px' }}>&nbsp;</div>
+										</div>
+									</AntdPopover>
+									<a className={styles.addItemButton} onClick={this.addItem}>
+										<PlusOutlined /> {locales.addText}
+									</a>
+								</div>
+							</div>
+						) */
+            }
             mode="multiple"
             optionLabelProp="label"
             open={open}
             value={value}
           >
             {options.map((item) => {
-              const { value, label } = item;
+              const { value: itemValue, label } = item;
               //   return <AntdOption key={value}>{label}</AntdOption>;
               //   umiConsole.log('xt/customedSelect/MyComponent #367 item:', item);
               return (
-                <AntdOption key={value} value={value}>
+                <AntdOption key={itemValue} value={itemValue}>
                   <div className={styles.optionItem}>
                     <span className={styles.optionLabelItem}>{this.optionRender(label as string)}</span>
                     <AntdButton
-                      size={'small'}
+                      size="small"
                       onClick={(e) => {
-                        const selectedValues = Object.values(this.state?.value || []).filter((a) => a === value) || [];
+                        const selectedValues =
+                          Object.values(this.state?.value || []).filter((a) => a === itemValue) || [];
                         // umiConsole.log('xt/customedSelect #213 selectedValues:', selectedValues);
                         if (selectedValues.length < 1) {
                           e.stopPropagation();
                         }
-                        this.deleteHandler(value);
+                        this.deleteHandler(itemValue);
                       }}
                     >
                       <span style={{ fontSize: '12px' }}>{locales.deleteText}</span>

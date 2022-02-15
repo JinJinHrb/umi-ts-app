@@ -132,7 +132,7 @@ class MyComponent<IMyComponent> extends React.PureComponent<IProps, IState> {
             <div className="ant-formily-item-label ant-formily-item-item-col-5">
               <div className="ant-formily-item-label-content">
                 <span className="ant-formily-item-asterisk">*</span>
-                <label>{upperTitle}</label>
+                <span>{upperTitle}</span>
               </div>
               <span className="ant-formily-item-colon">:</span>
             </div>
