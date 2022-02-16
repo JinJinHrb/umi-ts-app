@@ -28,15 +28,7 @@ interface IState {
   options: LabeledValue[];
 }
 
-interface IMyComponent {
-  onChange: (data: any) => void;
-  value: {
-    selected: string;
-    entered: string;
-  };
-}
-
-class MyComponent<IMyComponent> extends React.PureComponent<IProps, IState> {
+class MyComponent extends React.PureComponent<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = {
