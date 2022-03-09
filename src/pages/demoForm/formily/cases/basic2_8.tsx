@@ -12,7 +12,7 @@ export default (props: any) => {
 
   return (
     <div {...props}>
-      <p>组合校验</p>
+      <p>组合校验 异步校验</p>
       <button
         onClick={async () => {
           umiConsole.log('create Field');
@@ -40,23 +40,23 @@ export default (props: any) => {
           field.onInput('');
           await sleep(500);
           //2个错误，非必填，不是fish开头
-          umiConsole.log('#43', field.feedbacks, field.errors);
+          umiConsole.log('2个错误，非必填，不是fish开头 #43', field.feedbacks, field.errors);
 
           //直接设置value
           field.onInput('fish@123');
           await sleep(500);
           //1个错误，非email格式
-          umiConsole.log('#49', field.feedbacks, field.errors);
+          umiConsole.log('1个错误，非email格式 #49', field.feedbacks, field.errors);
 
           //直接设置value
           field.onInput('123@163.com');
           await sleep(500);
           //1个错误，非fish开头
-          umiConsole.log('#55', field.feedbacks, field.errors);
+          umiConsole.log('没有错误 #55', field.feedbacks, field.errors);
 
           field.onBlur();
           await sleep(1100);
-          umiConsole.log('#59', field.feedbacks, field.errors);
+          umiConsole.log('1个错误，非fish开头 #59', field.feedbacks, field.errors);
         }}
       >
         组合多种方式的校验
