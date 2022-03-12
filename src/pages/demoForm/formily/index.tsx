@@ -22,8 +22,8 @@ import SchemaControlledForm from '@/pages/demoForm/formily/cases/schemaControlle
 import ArrayItemsForm from '@/pages/demoForm/formily/cases/ArrayItems/json';
 import PassiveChainReactionForm from '@/pages/demoForm/formily/cases/chainReaction/passive';
 import PassiveChainReactionForm2 from '@/pages/demoForm/formily/cases/chainReaction/passive2';
-import InitiactiveChainReactionForm from '@/pages/demoForm/formily/cases/chainReaction/initiactive';
-import InitiactiveChainReactionForm2 from '@/pages/demoForm/formily/cases/chainReaction/initiactive2';
+import InitiativeChainReactionForm from '@/pages/demoForm/formily/cases/chainReaction/initiative';
+import InitiativeChainReactionForm2 from '@/pages/demoForm/formily/cases/chainReaction/initiative2';
 import ScopeChainReactionForm from '@/pages/demoForm/formily/cases/chainReaction/scope';
 import CustomForm from '@/pages/demoForm/formily/cases/Custom/index';
 import InteractiveModeForm from '@/pages/demoForm/formily/cases/interactiveMode';
@@ -123,14 +123,14 @@ const options = [
     key: 'SchemaControlledForm',
   },
   {
-    text: 'InitiactiveChainReactionForm',
-    component: <InitiactiveChainReactionForm className={'formily-demos'} />,
-    key: 'InitiactiveChainReactionForm',
+    text: 'InitiativeChainReactionForm',
+    component: <InitiativeChainReactionForm className={'formily-demos'} />,
+    key: 'InitiativeChainReactionForm',
   },
   {
-    text: 'InitiactiveChainReactionForm2',
-    component: <InitiactiveChainReactionForm2 />,
-    key: 'InitiactiveChainReactionForm2',
+    text: 'InitiativeChainReactionForm2',
+    component: <InitiativeChainReactionForm2 />,
+    key: 'InitiativeChainReactionForm2',
   },
   {
     text: 'PassiveChainReactionForm',
