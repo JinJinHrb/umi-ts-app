@@ -11,7 +11,7 @@ import MyComponent from './MyComponent';
 //   TextArea?: React.FC<TextAreaProps>;
 // };
 
-export const SelectInput: React.FC<any> = connect(
+export const CustomSelect: React.FC<any> = connect(
   MyComponent,
   mapProps(
     {
@@ -33,4 +33,4 @@ export const SelectInput: React.FC<any> = connect(
 
 // Input.TextArea = connect(AntdInput.TextArea /* , mapReadPretty(PreviewText.Input) */);
 
-export default SelectInput;
+export default CustomSelect;

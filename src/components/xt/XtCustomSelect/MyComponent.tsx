@@ -320,13 +320,18 @@ class MyComponent extends React.PureComponent<IProps, IState> {
 
   dropdownRender = (menu: React.ReactElement<any, string | React.JSXElementConstructor<any>>) => {
     const { locales, name, popoverVisible, color } = this.state;
-    // umiConsole.log('CustomSelect/MyComponent/dropdownRender #333', locales, name, popoverVisible, color);
+    // umiConsole.log('XtCustomSelect/MyComponent/dropdownRender #333', locales, name, popoverVisible, color);
     return (
       <div className="xt-dropdownWrapper">
         {menu}
         <AntdDivider className={styles.dropdownDivider} />
         <div className={styles.dropdownExtension}>
-          <AntdInput className={styles.inputItem} value={name} onChange={this.onNameChange} ref={this.inputRef} />
+          <AntdInput
+            className={styles.inputItem}
+            value={_.trim(name)}
+            onChange={this.onNameChange}
+            ref={this.inputRef}
+          />
           <AntdPopover
             placement="topRight"
             title={locales.colorText}

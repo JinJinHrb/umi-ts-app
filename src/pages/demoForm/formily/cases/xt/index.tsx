@@ -24,8 +24,8 @@ import { GET_GEO_LOCATION_QUERY_KEY } from '@/utils/constants';
 import { queryClient } from '@/utils/reactQuery';
 import _ from 'lodash';
 import { umiConsole } from '@/utils';
-import XtSelectInput from '@/components/xt/SelectInput';
-import XtCustomedSelect from '@/components/xt/CustomSelect';
+import XtSelectInput from '@/components/xt/XtSelectInput';
+import XtCustomSelect from '@/components/xt/XtCustomSelect';
 
 const form = createForm({
   validateFirst: true,
@@ -71,7 +71,7 @@ const SchemaField = createSchemaField({
     ArrayItems,
     Editable,
     XtSelectInput,
-    XtCustomedSelect,
+    XtCustomSelect,
   },
   scope: {
     fetchAddress: (field: any) => {
@@ -159,112 +159,6 @@ const schema = {
           },
         },
       },
-    },
-
-    socialAccount: {
-      type: 'object',
-      title: '社交账号',
-      required: true,
-      'x-decorator': 'FormItem',
-      'x-component': 'XtSelectInput',
-      /* 'x-component-props': {
-          upperTitle: '社交账号',
-        }, */
-      enum: [
-        {
-          label: 'Facebook',
-          value: 'Facebook',
-        },
-        {
-          label: 'Twitter',
-          value: 'Twitter',
-        },
-        {
-          label: 'QQ',
-          value: 'QQ',
-        },
-        {
-          label: 'Wechat',
-          value: 'Wechat',
-        },
-        {
-          label: 'Linkedin',
-          value: 'Linkedin',
-        },
-        {
-          label: 'Line',
-          value: 'Line',
-        },
-        {
-          label: 'WhatsApp',
-          value: 'WhatsApp',
-        },
-      ],
-    },
-
-    xtLabels: {
-      type: 'object',
-      title: '标签',
-      //   required: true,
-      'x-validator': [
-        {
-          required: true,
-          message: '必填字段',
-        },
-      ],
-      'x-decorator': 'FormItem',
-      'x-component': 'XtCustomedSelect',
-      'x-component-props': {
-        // upperTitle: '标签',
-        placeholder: '自选输入框',
-      },
-      enum: [] /* [
-        '{"text":"王五","color":"#fa8c16"}',
-        '{"text":"李四","color":"#fa541c"}',
-        '{"text":"张三","color":"#fa541c"}',
-      ].map((value) => ({
-        value,
-        label: value,
-      })), */,
-    },
-
-    payAmount: {
-      type: 'object',
-      title: '币种',
-      required: true,
-      'x-decorator': 'FormItem',
-      'x-component': 'XtSelectInput',
-      'x-component-props': {
-        // upperTitle: '币种',
-        inputType: 'number',
-      },
-      /*
-        人民币（CNY）￥
-        欧元（EUR）€
-        英镑（GBP）￡
-        澳元（AUD）A$
-        日元（JPY）¥
-        加元（CAD）C$
-        新西兰元（NZD）NZ$
-        澳门币（MOP）MOP$
-        香港港元（HKD）HK$
-        韩元（KRW）₩
-        俄罗斯卢布（RUB）₽
-        */
-      enum: [
-        { value: 'CNY', label: '人民币（CNY）' },
-        { value: 'USD', label: '美元（USD）' },
-        { value: 'EUR', label: '欧元（EUR）' },
-        { value: 'GBP', label: '英镑（GBP）' },
-        { value: 'AUD', label: '澳元（AUD）' },
-        { value: 'JPY', label: '日元（JPY）' },
-        { value: 'CAD', label: '加元（CAD）' },
-        { value: 'NZD', label: '新西兰元（NZD）' },
-        { value: 'MOP', label: '澳门币（MOP）' },
-        { value: 'HKD', label: '香港港元（HKD）' },
-        { value: 'KRW', label: '韩元（KRW）' },
-        { value: 'RUB', label: '俄罗斯卢布（RUB）' },
-      ],
     },
     email: {
       type: 'string',
@@ -401,6 +295,111 @@ const schema = {
           'x-component': 'ArrayItems.Addition',
         },
       },
+    },
+    socialAccount: {
+      type: 'object',
+      title: '社交账号',
+      required: true,
+      'x-decorator': 'FormItem',
+      'x-component': 'XtSelectInput',
+      /* 'x-component-props': {
+          upperTitle: '社交账号',
+        }, */
+      enum: [
+        {
+          label: 'Facebook',
+          value: 'Facebook',
+        },
+        {
+          label: 'Twitter',
+          value: 'Twitter',
+        },
+        {
+          label: 'QQ',
+          value: 'QQ',
+        },
+        {
+          label: 'Wechat',
+          value: 'Wechat',
+        },
+        {
+          label: 'Linkedin',
+          value: 'Linkedin',
+        },
+        {
+          label: 'Line',
+          value: 'Line',
+        },
+        {
+          label: 'WhatsApp',
+          value: 'WhatsApp',
+        },
+      ],
+    },
+
+    xtLabels: {
+      type: 'object',
+      title: '标签',
+      //   required: true,
+      'x-validator': [
+        {
+          required: true,
+          message: '必填字段',
+        },
+      ],
+      'x-decorator': 'FormItem',
+      'x-component': 'XtCustomSelect',
+      'x-component-props': {
+        // upperTitle: '标签',
+        placeholder: '自选输入框',
+      },
+      enum: [] /* [
+        '{"text":"王五","color":"#fa8c16"}',
+        '{"text":"李四","color":"#fa541c"}',
+        '{"text":"张三","color":"#fa541c"}',
+      ].map((value) => ({
+        value,
+        label: value,
+      })), */,
+    },
+
+    payAmount: {
+      type: 'object',
+      title: '币种',
+      required: true,
+      'x-decorator': 'FormItem',
+      'x-component': 'XtSelectInput',
+      'x-component-props': {
+        // upperTitle: '币种',
+        inputType: 'number',
+      },
+      /*
+        人民币（CNY）￥
+        欧元（EUR）€
+        英镑（GBP）￡
+        澳元（AUD）A$
+        日元（JPY）¥
+        加元（CAD）C$
+        新西兰元（NZD）NZ$
+        澳门币（MOP）MOP$
+        香港港元（HKD）HK$
+        韩元（KRW）₩
+        俄罗斯卢布（RUB）₽
+        */
+      enum: [
+        { value: 'CNY', label: '人民币（CNY）' },
+        { value: 'USD', label: '美元（USD）' },
+        { value: 'EUR', label: '欧元（EUR）' },
+        { value: 'GBP', label: '英镑（GBP）' },
+        { value: 'AUD', label: '澳元（AUD）' },
+        { value: 'JPY', label: '日元（JPY）' },
+        { value: 'CAD', label: '加元（CAD）' },
+        { value: 'NZD', label: '新西兰元（NZD）' },
+        { value: 'MOP', label: '澳门币（MOP）' },
+        { value: 'HKD', label: '香港港元（HKD）' },
+        { value: 'KRW', label: '韩元（KRW）' },
+        { value: 'RUB', label: '俄罗斯卢布（RUB）' },
+      ],
     },
   },
 };
