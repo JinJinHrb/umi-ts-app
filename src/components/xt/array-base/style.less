@@ -1,0 +1,44 @@
+@root-entry-name: 'default';
+@import (reference) '~antd/es/style/themes/index.less';
+
+@array-base-prefix-cls: ~'@{ant-prefix}-formily-array-base';
+
+.@{array-base-prefix-cls}-remove {
+  color: @text-color;
+  font-size: 16px;
+  transition: all 0.25s ease-in-out;
+  &:hover {
+    color: @primary-5;
+  }
+}
+
+.@{array-base-prefix-cls}-sort-handle {
+  color: #888 !important;
+  cursor: move;
+}
+
+.@{array-base-prefix-cls}-addition {
+  transition: all 0.25s ease-in-out;
+}
+
+.@{array-base-prefix-cls}-move-down {
+  margin-left: 6px;
+  color: @text-color;
+  font-size: 16px;
+  transition: all 0.25s ease-in-out;
+
+  &:hover {
+    color: @primary-5;
+  }
+}
+
+.@{array-base-prefix-cls}-move-up {
+  margin-left: 6px;
+  color: @text-color;
+  font-size: 16px;
+  transition: all 0.25s ease-in-out;
+
+  &:hover {
+    color: @primary-5;
+  }
+}
