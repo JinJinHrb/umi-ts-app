@@ -32,7 +32,7 @@ import SiblingPathsForm from '@/pages/demoForm/formily/cases/chainReaction/sibli
 // import '@formily/antd/dist/antd.css';
 import 'antd/dist/antd.css';
 import './styles.less';
-import { umiConsole } from '@/utils';
+// import { umiConsole } from '@/utils';
 
 const { Text } = Typography;
 

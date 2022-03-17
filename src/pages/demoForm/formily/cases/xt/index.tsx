@@ -26,6 +26,7 @@ import _ from 'lodash';
 import { umiConsole } from '@/utils';
 import XtSelectInput from '@/components/xt/XtSelectInput';
 import XtCustomSelect from '@/components/xt/XtCustomSelect';
+// import ArrayItems from '@/components/xt/array-items';
 
 const form = createForm({
   validateFirst: true,
@@ -74,6 +75,13 @@ const SchemaField = createSchemaField({
     XtCustomSelect,
   },
   scope: {
+    setContactName: (field: any, item: any) => {
+      // umiConsole.log('formily/cases/xt #79', 'field.title:', field.title, '\n', 'field:', field, 'item:', item);
+      const { $self, $record, $index } = item;
+      // field.title = $self.query('name').value();
+      field.title = `#${$index + 1} ${$record.name}`;
+    },
+
     fetchAddress: (field: any) => {
       const transform = (data = {}) => {
         return Object.entries(data).reduce((buf, [key, value]) => {
@@ -233,7 +241,7 @@ const schema = {
             'x-component-props': {
               layout: 'vertical',
             },
-            'x-reactions': [
+            /* 'x-reactions': [
               {
                 fulfill: {
                   schema: {
@@ -241,7 +249,8 @@ const schema = {
                   },
                 },
               },
-            ],
+            ], */
+            'x-reactions': '{{setContactName}}',
             properties: {
               name: {
                 type: 'string',
